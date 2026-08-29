@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — LimahCode</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .page-hero { padding:9rem 2.5rem 4rem; text-align:center; position:relative; }
+    .page-hero h1 { font-size:clamp(2.5rem,6vw,5rem); }
+    .page-hero h1 span { color:var(--gl); }
+    .page-hero p { margin:.75rem auto 0; font-size:1rem; font-weight:300; color:var(--glt); max-width:48ch; line-height:1.75; }
+
+    /* Annual toggle */
+    .toggle-row { margin-top:2rem; display:flex; align-items:center; justify-content:center; gap:1rem; }
+    .tgl-lbl { font-size:.85rem; color:var(--glt); }
+    .tgl-lbl.on { color:var(--white); font-weight:500; }
+    .tgl-track { position:relative; width:44px; height:24px; background:var(--green); border-radius:100px; cursor:pointer; display:inline-block; }
+    #ptoggle { position:absolute; opacity:0; width:100%; height:100%; cursor:pointer; margin:0; }
+    .tgl-thumb { position:absolute; top:3px; left:3px; width:18px; height:18px; background:#fff; border-radius:50%; transition:transform .2s; pointer-events:none; }
+    #ptoggle:checked ~ .tgl-thumb { transform:translateX(20px); }
+    .save-pill { background:rgba(232,144,10,.15); color:var(--al); font-size:.7rem; font-weight:500; padding:.2rem .65rem; border-radius:100px; border:1px solid rgba(232,144,10,.25); }
+    .ann-note { font-size:.72rem; color:var(--al); display:none; margin-top:.2rem; }
+
+    /* Pricing cards */
+    .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; margin-top:2.5rem; }
+    .pc { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:2rem; display:flex; flex-direction:column; gap:.65rem; transition:border-color .2s, transform .2s; }
+    .pc:hover { border-color:rgba(46,170,114,.3); transform:translateY(-2px); }
+    .pc.feat { border-color:var(--green); background:rgba(26,122,82,.08); position:relative; }
+    .feat-badge { position:absolute; top:-1px; left:50%; transform:translateX(-50%); background:var(--green); color:#fff; font-size:.65rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase; padding:.28rem .9rem; border-radius:0 0 8px 8px; white-space:nowrap; }
+    .pc-icon { font-size:1.5rem; }
+    .pc-name { font-family:'Syne',sans-serif; font-size:.85rem; font-weight:700; color:var(--glt); letter-spacing:.05em; text-transform:uppercase; }
+    .pc-price { font-family:'Syne',sans-serif; font-size:2.3rem; font-weight:800; line-height:1; }
+    .pc-price sub { font-size:.88rem; font-weight:400; color:var(--glt); vertical-align:baseline; }
+    .pc-desc { font-size:.83rem; color:var(--glt); line-height:1.6; font-weight:300; }
+    .pc-div { height:1px; background:rgba(255,255,255,.07); }
+    .pc-feats { list-style:none; display:flex; flex-direction:column; gap:.5rem; flex:1; }
+    .pc-feats li { font-size:.83rem; color:var(--glt); display:flex; gap:.55rem; font-weight:300; }
+    .pc-feats li::before { content:'✓'; color:var(--gl); font-weight:700; flex-shrink:0; }
+    .pc-feats li.off::before { content:'–'; color:var(--gm); }
+    .pc-feats li.off { color:var(--gm); }
+    .pc-btn { margin-top:auto; padding:.8rem; background:transparent; color:var(--white); font-family:'Syne',sans-serif; font-size:.88rem; font-weight:700; border:1px solid rgba(255,255,255,.2); border-radius:8px; cursor:pointer; transition:all .2s; text-align:center; text-decoration:none; display:block; }
+    .pc-btn:hover { border-color:var(--gl); color:var(--gl); }
+    .pc.feat .pc-btn { background:var(--green); border-color:var(--green); color:#fff; }
+    .pc.feat .pc-btn:hover { background:var(--gl); border-color:var(--gl); }
+
+    /* Academy pricing */
+    .acad-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:1rem; margin-top:2.5rem; }
+    .apc { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem; transition:border-color .2s; }
+    .apc:hover { border-color:rgba(46,170,114,.3); }
+    .apc h3 { font-size:.95rem; margin-bottom:.3rem; }
+    .apc-price { font-family:'Syne',sans-serif; font-size:1.75rem; font-weight:800; color:var(--gl); margin:.4rem 0; }
+    .apc p { font-size:.8rem; color:var(--glt); line-height:1.6; font-weight:300; }
+    .apc-tag { display:inline-block; margin-top:.65rem; font-size:.65rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--al); border:1px solid rgba(250,199,64,.22); padding:.18rem .6rem; border-radius:100px; }
+
+    .note-box { background:rgba(232,144,10,.06); border:1px solid rgba(232,144,10,.2); border-radius:12px; padding:1.2rem 1.5rem; font-size:.83rem; color:var(--glt); line-height:1.7; margin-top:1.5rem; }
+    .note-box strong { color:var(--al); }
+
+    @media(max-width:640px) { .page-hero { padding-left:1.5rem; padding-right:1.5rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Limah<span>Code</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+    <a href="academy.html">Academy</a><a href="portfolio.html">Portfolio</a>
+    <a href="pricing.html" class="active">Pricing</a><a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="Switch to light mode">&#127769;</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+  <a href="academy.html">Academy</a><a href="portfolio.html">Portfolio</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div class="badge">Transparent pricing · No surprises</div>
+  <h1>Simple, honest <span>pricing.</span></h1>
+  <p>Agency packages, CV/AI partnerships, and academy fees — all in one place.</p>
+  <div class="toggle-row">
+    <span class="tgl-lbl on" id="label-monthly">Monthly</span>
+    <label class="tgl-track">
+      <input type="checkbox" id="ptoggle" onchange="toggleAnnual(this.checked)">
+      <span class="tgl-thumb"></span>
+    </label>
+    <span class="tgl-lbl" id="label-annual">Annual</span>
+    <span class="save-pill">Save 20%</span>
+  </div>
+</div>
+
+<!-- AGENCY PRICING -->
+<section>
+  <span class="sec-label reveal">Software agency</span>
+  <h2 class="reveal">Project packages</h2>
+  <div class="pricing-grid reveal-group">
+    <div class="pc">
+      <div class="pc-icon">🌐</div>
+      <div class="pc-name">Starter</div>
+      <div class="pc-price">₦150k <sub>/project</sub></div>
+      <div class="ann-note" id="ann-1">₦120k with annual retainer</div>
+      <div class="pc-desc">Landing page or simple business website. Perfect for local businesses getting online.</div>
+      <div class="pc-div"></div>
+      <ul class="pc-feats">
+        <li>Up to 5 pages</li><li>Mobile responsive</li><li>Contact form</li>
+        <li>1 revision round</li><li>14-day delivery</li>
+        <li class="off">Custom backend</li><li class="off">Ongoing support</li>
+      </ul>
+      <a href="contact.html" class="pc-btn">Get started →</a>
+    </div>
+    <div class="pc feat">
+      <span class="feat-badge">Most popular</span>
+      <div class="pc-icon">⚙️</div>
+      <div class="pc-name">Professional</div>
+      <div class="pc-price">₦450k <sub>/project</sub></div>
+      <div class="ann-note" id="ann-2">₦360k with annual retainer</div>
+      <div class="pc-desc">Full web or mobile app with backend. Ideal for startups needing a real digital product.</div>
+      <div class="pc-div"></div>
+      <ul class="pc-feats">
+        <li>Full-stack web or mobile app</li><li>Database & backend API</li>
+        <li>Admin dashboard</li><li>3 revision rounds</li>
+        <li>30–45 day delivery</li><li>1 month support</li>
+        <li class="off">AI/CV integration</li>
+      </ul>
+      <a href="contact.html" class="pc-btn">Get started →</a>
+    </div>
+    <div class="pc">
+      <div class="pc-icon">🔮</div>
+      <div class="pc-name">Enterprise</div>
+      <div class="pc-price">Custom</div>
+      <div class="ann-note" id="ann-3">Contact us for rates</div>
+      <div class="pc-desc">Complex platforms, AI integration, CV systems, or long-term retainer partnerships.</div>
+      <div class="pc-div"></div>
+      <ul class="pc-feats">
+        <li>Scoped to your needs</li><li>CV/AI development</li>
+        <li>Dedicated team</li><li>Project manager</li>
+        <li>SLA & ongoing support</li><li>Investor documentation</li>
+        <li>Partnership options</li>
+      </ul>
+      <a href="contact.html" class="pc-btn">Talk to us →</a>
+    </div>
+  </div>
+  <div class="note-box"><strong>Note:</strong> All prices are starting points. We send a detailed quote after a free 30-minute discovery call. No hidden fees, ever.</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACADEMY PRICING -->
+<section class="surface-bg">
+  <span class="sec-label reveal">Academy fees</span>
+  <h2 class="reveal">Cohort fees per student</h2>
+  <div class="acad-grid reveal-group">
+    <div class="apc reveal"><h3>Beginner Track</h3><div class="apc-price">₦25,000</div><p>8 weeks · Scratch + Python · Age 12–14. All materials, Discord, certificate included.</p><span class="apc-tag">Cohort 1 discount</span></div>
+    <div class="apc reveal" style="border-color:var(--green);"><h3>Builder Track</h3><div class="apc-price">₦35,000</div><p>8 weeks · HTML/CSS/JS · Age 13–17. Build and deploy a live website by week 8.</p><span class="apc-tag">Most popular</span></div>
+    <div class="apc reveal"><h3>Advanced Track</h3><div class="apc-price">₦45,000</div><p>8 weeks · Python + AI intro · Age 15–18. Build a smart project using real data and AI tools.</p><span class="apc-tag">Limited spots</span></div>
+    <div class="apc reveal"><h3>Sibling discount</h3><div class="apc-price">−₦5,000</div><p>Enrol two or more siblings in the same cohort and save ₦5,000 per additional student.</p></div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section>
+  <span class="sec-label reveal">Compare</span>
+  <h2 class="reveal">Agency package breakdown</h2>
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr><th>Feature</th><th>Starter</th><th class="fh">Professional</th><th>Enterprise</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Static website</td><td class="cy">✓</td><td class="cy fc">✓</td><td class="cy">✓</td></tr>
+        <tr><td>Custom backend</td><td class="cn">–</td><td class="cy fc">✓</td><td class="cy">✓</td></tr>
+        <tr><td>Mobile app</td><td class="cn">–</td><td class="cy fc">✓</td><td class="cy">✓</td></tr>
+        <tr><td>Admin dashboard</td><td class="cn">–</td><td class="cy fc">✓</td><td class="cy">✓</td></tr>
+        <tr><td>AI / CV integration</td><td class="cn">–</td><td class="cn fc">–</td><td class="cy">✓</td></tr>
+        <tr><td>Post-launch support</td><td class="cn">–</td><td class="cy fc">1 month</td><td class="cy">Ongoing</td></tr>
+        <tr><td>Delivery time</td><td>14 days</td><td class="fc">30–45 days</td><td>Scoped</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="logo">Limah<span>Code</span></a><p>Build. Teach. Innovate. Lagos, Nigeria.</p></div>
+    <div class="footer-col"><h4>Pages</h4><a href="index.html">Home</a><a href="services.html">Services</a><a href="portfolio.html">Portfolio</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Academy</h4><a href="academy.html">Enrol</a><a href="academy.html#faq">FAQs</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="mailto:hello@limahcode.com">hello@limahcode.com</a><a href="#">Instagram: @limahcode</a></div>
+  </div>
+  <div class="footer-bottom"><a href="index.html" class="logo" style="font-size:.95rem;">Limah<span>Code</span></a><p>© 2025 LimahCode. Lagos 🇳🇬</p></div>
+</footer>
+
+<script src="js/nav.js"></script>
+
+<script>
+(function(){
+  var btn=document.getElementById("theme-btn");
+  if(btn && document.body.classList.contains("light-mode")) btn.textContent="\u2600\uFE0F";
+})();
+</script>
+</body>
+</html>

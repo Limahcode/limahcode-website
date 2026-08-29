@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — LimahCode</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .page-hero { padding:9rem 2.5rem 4rem; position:relative; overflow:hidden; }
+    .page-hero h1 { font-size:clamp(2.5rem,6vw,5rem); }
+    .page-hero h1 span { color:var(--gl); }
+    .page-hero p { margin-top:1.25rem; font-size:1rem; font-weight:300; color:var(--glt); max-width:52ch; line-height:1.75; }
+
+    .svc-row { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; padding:4rem 2.5rem; border-bottom:1px solid rgba(255,255,255,.05); }
+    .svc-row:last-of-type { border-bottom:none; }
+    .svc-row.flip { direction:rtl; }
+    .svc-row.flip > * { direction:ltr; }
+    .svc-row-label { font-size:.72rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; margin-bottom:.75rem; }
+    .c-green { color:var(--gl); } .c-amber { color:var(--al); } .c-blue { color:var(--bl); }
+    .svc-row h2 { font-size:clamp(1.6rem,3.5vw,2.5rem); margin-bottom:1rem; }
+    .svc-row p { font-size:.92rem; color:var(--glt); line-height:1.8; font-weight:300; margin-bottom:1.5rem; }
+    .feature-list { list-style:none; display:flex; flex-direction:column; gap:.55rem; margin-bottom:1.75rem; }
+    .feature-list li { font-size:.88rem; color:var(--glt); display:flex; gap:.65rem; font-weight:300; }
+    .feature-list li::before { content:'✓'; color:var(--gl); font-weight:700; flex-shrink:0; }
+    .svc-visual { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:3rem; display:flex; align-items:center; justify-content:center; min-height:280px; position:relative; overflow:hidden; text-align:center; }
+    .svc-visual-icon { font-size:5rem; opacity:.12; position:absolute; }
+    .big-stat { font-family:'Syne',sans-serif; font-size:4rem; font-weight:800; color:var(--gl); line-height:1; position:relative; }
+    .big-stat-sub { font-size:.8rem; color:var(--gm); margin-top:.5rem; position:relative; }
+
+    @media(max-width:900px) { .svc-row { grid-template-columns:1fr; gap:2rem; } .svc-row.flip { direction:ltr; } }
+    @media(max-width:640px) { .page-hero, .svc-row { padding-left:1.5rem; padding-right:1.5rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Limah<span>Code</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a><a href="about.html">About</a>
+    <a href="services.html" class="active">Services</a><a href="academy.html">Academy</a>
+    <a href="portfolio.html">Portfolio</a><a href="pricing.html">Pricing</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="Switch to light mode">&#127769;</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+  <a href="academy.html">Academy</a><a href="portfolio.html">Portfolio</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div class="badge">What we offer</div>
+  <h1>Services that <span>move businesses forward.</span></h1>
+  <p>Three specialised lines — software development, computer vision & AI, and tech education. Pick one or all three.</p>
+</div>
+
+<div class="svc-row reveal">
+  <div>
+    <div class="svc-row-label c-green">Line 01 · Academy</div>
+    <h2 class="reveal">Teen Coding Academy</h2>
+    <p>Live, online coding bootcamps for teens aged 12–18. Small cohorts of up to 15 students, taught through real projects, producing graduates who can actually build.</p>
+    <ul class="feature-list">
+      <li>3 tracks: Beginner, Builder, and Advanced</li>
+      <li>8-week cohorts, live on Zoom every weekend</li>
+      <li>Max 15 students per batch — real mentorship</li>
+      <li>Curriculum: Scratch, Python, HTML/CSS/JS, AI basics</li>
+      <li>Every student deploys a live project by graduation</li>
+      <li>Discord community + recorded sessions</li>
+    </ul>
+    <a href="academy.html" class="btn-primary">See academy details →</a>
+  </div>
+  <div class="svc-visual">
+    <div class="svc-visual-icon">🎓</div>
+    <div><div class="big-stat">100%</div><div class="big-stat-sub">Cohort completion rate</div><div style="margin-top:1.5rem;font-size:.8rem;color:var(--gm);">15 max · 8 weeks · Live online</div></div>
+  </div>
+</div>
+
+<div class="svc-row flip" style="background:var(--surf);">
+  <div>
+    <div class="svc-row-label c-blue">Line 02 · Agency</div>
+    <h2 class="reveal">Software Development Agency</h2>
+    <p>We build custom web and mobile applications for businesses, startups, and entrepreneurs — from a landing page to a full-stack marketplace.</p>
+    <ul class="feature-list">
+      <li>Web apps, mobile apps, and admin dashboards</li>
+      <li>Full-stack: React, Node.js, Python, React Native</li>
+      <li>Database design, APIs, and third-party integrations</li>
+      <li>Paystack & Flutterwave integration</li>
+      <li>Post-launch support and documentation included</li>
+      <li>Transparent pricing — see rates before committing</li>
+    </ul>
+    <a href="portfolio.html" class="btn-primary">See projects →</a>
+  </div>
+  <div class="svc-visual">
+    <div class="svc-visual-icon">⚙️</div>
+    <div><div class="big-stat" style="color:var(--bl);">6+</div><div class="big-stat-sub">Projects delivered</div><div style="margin-top:1.5rem;font-size:.8rem;color:var(--gm);">Web · Mobile · Dashboard · API</div></div>
+  </div>
+</div>
+
+<div class="svc-row reveal">
+  <div>
+    <div class="svc-row-label c-amber">Line 03 · AI / CV</div>
+    <h2 class="reveal">Computer Vision & AI Products</h2>
+    <p>Our deepest technical edge. We design and build computer vision systems for real-world deployment — from object detection to facial recognition to smart retail monitoring.</p>
+    <ul class="feature-list">
+      <li>Custom object detection with YOLOv8 and OpenCV</li>
+      <li>Facial recognition and access control systems</li>
+      <li>Retail shelf monitoring and inventory automation</li>
+      <li>Edge deployment on Raspberry Pi and Jetson Nano</li>
+      <li>SaaS licensing model available</li>
+      <li>Pilot partnerships available</li>
+    </ul>
+    <a href="contact.html" class="btn-primary">Discuss a project →</a>
+  </div>
+  <div class="svc-visual">
+    <div class="svc-visual-icon">👁️</div>
+    <div><div class="big-stat" style="color:var(--al);">99%</div><div class="big-stat-sub">Recognition accuracy achieved</div><div style="margin-top:1.5rem;font-size:.8rem;color:var(--gm);">Detection · Recognition · Automation</div></div>
+  </div>
+</div>
+
+<section class="green-bg" style="text-align:center;">
+  <span class="sec-label reveal">Start your project</span>
+  <h2 class="reveal">Let's build something great.</h2>
+  <p class="sec-sub reveal" style="margin:.75rem auto 2rem;">Every idea deserves to be built properly. Let's talk.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="contact.html" class="btn-primary">Get in touch →</a>
+    <a href="pricing.html" class="btn-outline">View pricing</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="logo">Limah<span>Code</span></a><p>Build. Teach. Innovate. Lagos, Nigeria.</p></div>
+    <div class="footer-col"><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="portfolio.html">Portfolio</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Academy</h4><a href="academy.html">Programmes</a><a href="pricing.html">Fees</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="mailto:hello@limahcode.com">hello@limahcode.com</a><a href="#">Instagram: @limahcode</a></div>
+  </div>
+  <div class="footer-bottom"><a href="index.html" class="logo" style="font-size:.95rem;">Limah<span>Code</span></a><p>© 2025 LimahCode. Lagos 🇳🇬</p></div>
+</footer>
+
+<script src="js/nav.js"></script>
+
+<script>
+(function(){
+  var btn=document.getElementById("theme-btn");
+  if(btn && document.body.classList.contains("light-mode")) btn.textContent="\u2600\uFE0F";
+})();
+</script>
+</body>
+</html>

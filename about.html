@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — LimahCode</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .about-hero {
+      padding: 9rem 2.5rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      position: relative;
+    }
+    .about-glow { position:absolute; top:0; right:0; width:400px; height:400px; background:radial-gradient(circle,rgba(26,122,82,.12) 0%,transparent 70%); pointer-events:none; }
+    .about-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+    .about-hero h1 span { color: var(--gl); }
+    .about-hero p { margin-top:1.25rem; font-size:1rem; font-weight:300; color:var(--glt); line-height:1.8; }
+
+    /* Founder card */
+    .founder-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:2.5rem; }
+    .founder-avatar { width:80px; height:80px; border-radius:16px; background:linear-gradient(135deg,var(--green),var(--gl)); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:#fff; margin-bottom:1.25rem; }
+    .founder-title { font-size:.82rem; color:var(--gl); font-weight:500; letter-spacing:.05em; text-transform:uppercase; margin-bottom:1rem; }
+    .skills-wrap { margin-top:1.25rem; display:flex; flex-wrap:wrap; gap:.4rem; }
+    .skill-tag { font-size:.72rem; padding:.25rem .7rem; border-radius:100px; border:1px solid rgba(46,170,114,.25); color:var(--gl); }
+
+    /* Values */
+    .values-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:3rem; }
+    .value-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.75rem; }
+    .value-icon { font-size:1.5rem; margin-bottom:.75rem; }
+    .value-card h3 { font-size:.95rem; margin-bottom:.5rem; }
+    .value-card p { font-size:.83rem; color:var(--glt); line-height:1.65; font-weight:300; }
+
+    @media(max-width:900px) { .about-hero { grid-template-columns:1fr; gap:2.5rem; padding:7rem 1.5rem 3rem; } }
+    @media(max-width:640px) { .about-hero { padding-left:1.5rem; padding-right:1.5rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Limah<span>Code</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="services.html">Services</a>
+    <a href="academy.html">Academy</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="Switch to light mode">&#127769;</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+  <a href="academy.html">Academy</a><a href="portfolio.html">Portfolio</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="about-hero">
+  <div class="about-glow"></div>
+  <div>
+    <div class="badge">Our story</div>
+    <h1>Built by an engineer who <span>refused to stop.</span></h1>
+    <p>LimahCode was born out of a simple frustration — great engineering talent in Africa, but not enough platforms, products, or teachers helping it grow. So we became all three.</p>
+    <p>We build software for businesses, develop AI-powered computer vision products, and teach the next generation of African developers to code — all under one roof, with the same standard of excellence.</p>
+    <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="contact.html" class="btn-primary">Work with us</a>
+      <a href="portfolio.html" class="btn-outline">See our work</a>
+    </div>
+  </div>
+  <div class="founder-card">
+    <div class="founder-avatar">LC</div>
+    <h3>The Founder</h3>
+    <div class="founder-title">Software & Computer Vision Engineer</div>
+    <p style="font-size:.88rem;color:var(--glt);line-height:1.75;font-weight:300;">A full-stack software engineer and computer vision specialist with deep experience building intelligent systems — from web platforms to real-time object detection pipelines. Founded LimahCode to channel that expertise into building, teaching, and innovating at scale.</p>
+    <div class="skills-wrap">
+      <span class="skill-tag">Python</span><span class="skill-tag">Computer Vision</span>
+      <span class="skill-tag">YOLOv8</span><span class="skill-tag">OpenCV</span>
+      <span class="skill-tag">React</span><span class="skill-tag">Node.js</span>
+      <span class="skill-tag">TensorFlow</span><span class="skill-tag">React Native</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section class="surface-bg">
+  <span class="sec-label reveal">What drives us</span>
+  <h2 class="reveal">Our values</h2>
+  <div class="values-grid reveal-group">
+    <div class="value-card reveal"><div class="value-icon">🔨</div><h3>Build things that work</h3><p>We don't ship half-finished products. Every project gets the same attention — whether it's a small website or a full AI system.</p></div>
+    <div class="value-card reveal"><div class="value-icon">🌍</div><h3>African excellence</h3><p>We're proudly Lagos-based and building for the world. Africa deserves world-class tech — we're here to build it.</p></div>
+    <div class="value-card reveal"><div class="value-icon">📚</div><h3>Teach as you grow</h3><p>Every senior developer was once a beginner. We invest in the next generation — it's how ecosystems grow.</p></div>
+    <div class="value-card reveal"><div class="value-icon">🤝</div><h3>Honest partnerships</h3><p>We tell clients the truth about what's possible, what it costs, and how long it takes. No overselling, no vanishing.</p></div>
+  </div>
+</section>
+
+<section class="green-bg" style="text-align:center;">
+  <span class="sec-label reveal">Let's connect</span>
+  <h2 class="reveal">We'd love to hear from you.</h2>
+  <p class="sec-sub" style="margin:1rem auto 2rem;">Project, partnership, investment, or just a conversation — reach out.</p>
+  <a href="contact.html" class="btn-primary">Get in touch →</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="logo">Limah<span>Code</span></a><p>Software engineering studio, computer vision lab, and online coding school. Lagos, Nigeria.</p></div>
+    <div class="footer-col"><h4>Company</h4><a href="index.html">Home</a><a href="services.html">Services</a><a href="portfolio.html">Portfolio</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Academy</h4><a href="academy.html">Programmes</a><a href="academy.html#enrol">Enrol</a><a href="pricing.html">Fees</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="#">Instagram: @limahcode</a><a href="#">Twitter: @limahcode</a><a href="mailto:limahcode192025@gmail.com">limahcode192025@gmail.com</a></div>
+  </div>
+  <div class="footer-bottom">
+    <a href="index.html" class="logo" style="font-size:.95rem;">Limah<span>Code</span></a>
+    <p>© 2025 LimahCode. Lagos, Nigeria 🇳🇬</p>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+
+<script>
+(function(){
+  var btn=document.getElementById("theme-btn");
+  if(btn && document.body.classList.contains("light-mode")) btn.textContent="\u2600\uFE0F";
+})();
+</script>
+</body>
+</html>

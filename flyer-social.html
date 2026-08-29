@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LimahCode — Social Media Flyer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #2a2a28;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  .controls {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .ctrl-btn {
+    background: #1A7A52;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    padding: .6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .ctrl-btn:hover { background: #2EAA72; }
+  .ctrl-btn.active { background: #2EAA72; outline: 2px solid #FAC740; }
+  .ctrl-note { font-size:.75rem; color:#888; margin-top:.5rem; text-align:center; width:100%; }
+
+  /* ── SHARED CARD STYLES ── */
+  .card-wrap {
+    width: 540px;
+    height: 540px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── VARIANT 1: Dark green gradient ── */
+  .v1 {
+    background: linear-gradient(145deg, #0E0E0C 0%, #0D3D29 55%, #1A7A52 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 36px;
+  }
+  .v1::before { content:''; position:absolute; top:-60px; right:-60px; width:280px; height:280px; background:radial-gradient(circle, rgba(46,170,114,.25) 0%, transparent 70%); }
+  .v1::after  { content:'{ }'; position:absolute; bottom:30px; right:30px; font-family:'Syne',sans-serif; font-size:90px; font-weight:800; color:rgba(255,255,255,.05); line-height:1; }
+  .v1 .logo   { font-family:'Syne',sans-serif; font-weight:800; font-size:18px; color:#F5F3EE; }
+  .v1 .logo span { color:#2EAA72; }
+  .v1 .pill   { display:inline-flex; align-items:center; gap:6px; background:rgba(46,170,114,.2); border:1px solid rgba(46,170,114,.4); border-radius:100px; padding:4px 12px; font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:#2EAA72; }
+  .v1 .pill::before { content:''; width:5px; height:5px; background:#2EAA72; border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+  .v1 .title  { font-family:'Syne',sans-serif; font-size:40px; font-weight:800; line-height:.95; letter-spacing:-.04em; color:#F5F3EE; position:relative; z-index:1; }
+  .v1 .title .amber { color:#FAC740; }
+  .v1 .sub    { font-size:13px; font-weight:300; color:rgba(245,243,238,.75); line-height:1.55; max-width:30ch; margin-top:10px; position:relative; z-index:1; }
+  .v1 .tags   { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; position:relative; z-index:1; }
+  .v1 .tag    { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:100px; padding:3px 10px; font-size:9.5px; color:rgba(245,243,238,.8); font-weight:400; }
+  .v1 .bottom { display:flex; justify-content:space-between; align-items:flex-end; position:relative; z-index:1; }
+  .v1 .cta    { background:#2EAA72; color:#fff; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; padding:8px 16px; border-radius:8px; letter-spacing:.02em; }
+  .v1 .contact { text-align:right; }
+  .v1 .contact .wa { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:#FAC740; }
+  .v1 .contact .ig { font-size:9px; color:rgba(245,243,238,.5); margin-top:2px; }
+
+  /* ── VARIANT 2: Bold amber ── */
+  .v2 {
+    background: #0E0E0C;
+    display: flex;
+    flex-direction: column;
+  }
+  .v2-top { background:linear-gradient(135deg,#E8900A,#FAC740); padding:32px 36px 28px; }
+  .v2-top .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:17px; color:#0E0E0C; }
+  .v2-top .logo span { color:#1A7A52; }
+  .v2-top .big { font-family:'Syne',sans-serif; font-size:46px; font-weight:800; line-height:.9; letter-spacing:-.04em; color:#0E0E0C; margin-top:12px; }
+  .v2-top .big2 { font-size:22px; }
+  .v2-body { flex:1; padding:24px 36px; display:flex; flex-direction:column; justify-content:space-between; }
+  .v2-body .sub { font-size:12.5px; font-weight:300; color:#C4C2BA; line-height:1.6; max-width:36ch; }
+  .v2-rows { display:flex; flex-direction:column; gap:8px; margin-top:16px; }
+  .v2-row { display:flex; align-items:center; gap:8px; font-size:11px; color:#F5F3EE; font-weight:400; }
+  .v2-row span.dot { width:6px; height:6px; background:#FAC740; border-radius:50%; flex-shrink:0; }
+  .v2-bottom { display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,.07); padding-top:16px; }
+  .v2-bottom .wa { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:#FAC740; }
+  .v2-bottom .ig { font-size:9px; color:#6B6B65; }
+  .v2-enrol { background:#1A7A52; color:#fff; font-family:'Syne',sans-serif; font-size:10.5px; font-weight:700; padding:8px 14px; border-radius:8px; }
+
+  /* ── VARIANT 3: Clean minimal ── */
+  .v3 {
+    background: #F5F3EE;
+    color: #0E0E0C;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .v3::before { content:''; position:absolute; top:0; left:0; right:0; height:5px; background:#1A7A52; }
+  .v3 .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:17px; color:#0E0E0C; }
+  .v3 .logo span { color:#1A7A52; }
+  .v3 .eyebrow { font-size:9px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:#1A7A52; margin-top:28px; }
+  .v3 .title { font-family:'Syne',sans-serif; font-size:42px; font-weight:800; line-height:.95; letter-spacing:-.04em; color:#0E0E0C; margin-top:8px; }
+  .v3 .title span { color:#1A7A52; }
+  .v3 .sub { font-size:12px; font-weight:300; color:#6B6B65; line-height:1.6; max-width:36ch; margin-top:10px; }
+  .v3 .tracks { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:20px; }
+  .v3 .tr { background:#0E0E0C; border-radius:8px; padding:10px 10px 8px; }
+  .v3 .tr .ti { font-size:14px; }
+  .v3 .tr .tn { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; color:#F5F3EE; margin-top:4px; }
+  .v3 .tr .tp { font-family:'Syne',sans-serif; font-size:12px; font-weight:800; color:#2EAA72; margin-top:3px; }
+  .v3 .bottom { display:flex; justify-content:space-between; align-items:flex-end; }
+  .v3 .cta-box { background:#1A7A52; border-radius:10px; padding:10px 16px; }
+  .v3 .cta-box p { font-size:9px; color:rgba(245,243,238,.7); }
+  .v3 .cta-box .wa { font-family:'Syne',sans-serif; font-size:11.5px; font-weight:800; color:#FAC740; }
+  .v3 .meta { text-align:right; font-size:9px; color:#6B6B65; line-height:1.6; }
+
+  @media print { body { background:white; } .controls { display:none; } }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button class="ctrl-btn active" onclick="show('v1',this)">Version 1 — Dark Green</button>
+  <button class="ctrl-btn" onclick="show('v2',this)">Version 2 — Amber Bold</button>
+  <button class="ctrl-btn" onclick="show('v3',this)">Version 3 — Light Clean</button>
+  <div class="ctrl-note">Screenshot at 1080×1080px for Instagram/WhatsApp. Or print/save as PDF.</div>
+</div>
+
+<!-- VARIANT 1: Dark Green -->
+<div class="card-wrap v1" id="v1">
+  <div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div class="logo">Limah<span>Code</span></div>
+      <div class="pill">Now enrolling</div>
+    </div>
+  </div>
+  <div>
+    <div class="title">Learn to<br>code<br><span class="amber">this term.</span></div>
+    <div class="sub">Live online coding classes for teens aged 12–18. Small groups, real projects, real skills.</div>
+    <div class="tags">
+      <span class="tag">📅 8 weeks</span>
+      <span class="tag">👦 Age 12–18</span>
+      <span class="tag">💻 Live via Zoom</span>
+      <span class="tag">🇳🇬 Lagos-based</span>
+      <span class="tag">👥 Max 15 students</span>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="cta">Enrol in Cohort 2 →</div>
+    <div class="contact">
+      <div class="wa">+234 802 503 4999</div>
+      <div class="ig">@limahcode · limahcode.com</div>
+    </div>
+  </div>
+</div>
+
+<!-- VARIANT 2: Amber Bold -->
+<div class="card-wrap v2" id="v2" style="display:none;">
+  <div class="v2-top">
+    <div class="logo">Limah<span>Code</span> <span style="font-size:11px;font-weight:400;color:#0E0E0C;opacity:.6;">Cohort 2</span></div>
+    <div class="big">Web & CSS<br><span class="big2">Mastery</span><br>Bootcamp.</div>
+  </div>
+  <div class="v2-body">
+    <div>
+      <div class="sub">Live online coding bootcamp for teens. Real projects, 1-on-1 mentorship, interactive playgrounds. Your teen builds and deploys real websites to the internet!</div>
+      <div class="v2-rows">
+        <div class="v2-row"><span class="dot"></span><span>Ages 12–18 · Weekend live Zoom classes</span></div>
+        <div class="v2-row"><span class="dot"></span><span>HTML5, Advanced CSS, Animations & Flexbox</span></div>
+        <div class="v2-row"><span class="dot"></span><span>Live Netlify Deployment & Portfolio Defense</span></div>
+        <div class="v2-row"><span class="dot"></span><span>Cohort 1 Graduates get Early Bird Special!</span></div>
+      </div>
+    </div>
+    <div class="v2-bottom">
+      <div>
+        <div class="wa">+234 802 503 4999</div>
+        <div class="ig">WhatsApp to secure a slot</div>
+      </div>
+      <div class="v2-enrol">Enrol Now →</div>
+    </div>
+  </div>
+</div>
+
+<!-- VARIANT 3: Light/Clean -->
+<div class="card-wrap v3" id="v3" style="display:none;">
+  <div>
+    <div class="logo">Limah<span>Code</span> · Cohort 2</div>
+    <div class="eyebrow">Weekend Coding School · Ages 12–18</div>
+    <div class="title">Code.<br><span>Build.</span><br>Deploy.</div>
+    <div class="sub">Level up your teen's tech skills with our hands-on Web Development & CSS Mastery Bootcamp. Small class size, real projects, verified certificates.</div>
+    <div class="tracks">
+      <div class="tr"><div class="ti">🌱</div><div class="tn">Beginner</div><div class="tp">HTML5</div></div>
+      <div class="tr"><div class="ti">⚡</div><div class="tn">Builder</div><div class="tp">CSS & Flex</div></div>
+      <div class="tr"><div class="ti">🚀</div><div class="tn">Deploy</div><div class="tp">Live Sites</div></div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="cta-box">
+      <p>WhatsApp to enrol</p>
+      <div class="wa">+234 802 503 4999</div>
+    </div>
+    <div class="meta">
+      <div>@limahcode</div>
+      <div>hello@limahcode.com</div>
+      <div style="margin-top:4px;">Lagos, Nigeria 🇳🇬</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id, btn) {
+  ['v1','v2','v3'].forEach(v => document.getElementById(v).style.display = 'none');
+  document.getElementById(id).style.display = 'flex';
+  document.querySelectorAll('.ctrl-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

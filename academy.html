@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academy — LimahCode</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .page-hero { padding:9rem 2.5rem 4rem; position:relative; overflow:hidden; }
+    .page-hero h1 { font-size:clamp(2.5rem,6vw,5rem); }
+    .page-hero h1 span { color:var(--gl); }
+    .page-hero p { margin-top:1.25rem; font-size:1rem; font-weight:300; color:var(--glt); max-width:52ch; line-height:1.75; }
+    .meta-row { margin-top:2.5rem; display:flex; gap:2.5rem; flex-wrap:wrap; }
+    .mv { font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; }
+    .ml { font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gm); margin-top:.15rem; }
+
+    .tracks-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1rem; margin-top:2.5rem; }
+    .track-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:2rem; transition:border-color .3s, transform .3s, box-shadow .3s; }
+    .track-card:hover { border-color:rgba(46,170,114,.35); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.2); }
+    .track-card.popular { border-color:var(--green); background:rgba(26,122,82,.08); position:relative; }
+    .pop-badge { position:absolute; top:1rem; right:1rem; font-size:.65rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase; background:var(--green); color:#fff; padding:.2rem .65rem; border-radius:100px; }
+    .track-icon { font-size:1.8rem; margin-bottom:1rem; }
+    .track-card h3 { font-size:1.05rem; margin-bottom:.45rem; }
+    .track-card p { font-size:.83rem; color:var(--glt); line-height:1.65; font-weight:300; margin-bottom:1rem; }
+    .track-tags { display:flex; flex-wrap:wrap; gap:.35rem; }
+    .ttag { font-size:.68rem; padding:.2rem .6rem; border-radius:100px; border:1px solid rgba(46,170,114,.25); color:var(--gl); }
+
+    /* Timeline curriculum */
+    .timeline { position:relative; margin-top:2.5rem; }
+    .timeline::before { content:''; position:absolute; left:28px; top:0; bottom:0; width:2px; background:linear-gradient(to bottom, var(--green), transparent); }
+    .tl-row { display:grid; grid-template-columns:60px 1fr; gap:1.25rem; padding:.9rem 0; align-items:start; transition:opacity .2s; }
+    .tl-row:hover .tl-body { background:rgba(255,255,255,.03); border-color:rgba(46,170,114,.25); }
+    .tl-dot { width:32px; height:32px; border-radius:50%; background:var(--card); border:2px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:.7rem; font-weight:700; color:var(--gl); flex-shrink:0; margin-top:.15rem; transition:border-color .3s, background .3s; }
+    .tl-row:hover .tl-dot { border-color:var(--gl); background:rgba(46,170,114,.15); }
+    .tl-row.final .tl-dot { background:var(--green); border-color:var(--green); color:#fff; }
+    .tl-body { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:.9rem 1.25rem; transition:background .2s, border-color .2s; }
+    .tl-title { font-size:.92rem; font-weight:500; margin-bottom:.2rem; }
+    .tl-desc { font-size:.78rem; color:var(--gm); font-weight:300; }
+    .tl-tag { float:right; font-size:.65rem; color:var(--al); letter-spacing:.06em; text-transform:uppercase; font-weight:500; margin-top:.1rem; }
+
+    .enrol-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:2.5rem; max-width:640px; }
+
+    @media(max-width:640px) {
+      .page-hero { padding-left:1.5rem; padding-right:1.5rem; }
+      .timeline::before { left:20px; }
+      .tl-row { grid-template-columns:44px 1fr; }
+      .tl-dot { width:24px; height:24px; font-size:.6rem; }
+      .tl-tag { float:none; display:block; margin-top:.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Limah<span>Code</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+    <a href="academy.html" class="active">Academy</a><a href="portfolio.html">Portfolio</a>
+    <a href="pricing.html">Pricing</a><a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="Switch to light mode">🌙</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+  <a href="academy.html">Academy</a><a href="portfolio.html">Portfolio</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div class="badge reveal">Now enrolling · Cohort 1 · 2025</div>
+  <h1 class="reveal">Learn to code.<br><span>Build real things.</span></h1>
+  <p class="reveal">Live, online coding bootcamp for teens aged 12–18. Small cohorts, real projects, expert mentorship — from Lagos to the world.</p>
+  <div class="meta-row reveal-group">
+    <div><div class="mv">8 wks</div><div class="ml">Per cohort</div></div>
+    <div><div class="mv">12–18</div><div class="ml">Age range</div></div>
+    <div><div class="mv">15 max</div><div class="ml">Per batch</div></div>
+    <div><div class="mv">Live</div><div class="ml">Via Zoom</div></div>
+  </div>
+</div>
+
+<!-- TRACKS -->
+<section>
+  <span class="sec-label reveal">Learning tracks</span>
+  <h2 class="reveal">Choose your path</h2>
+  <p class="sec-sub reveal">Three tracks by experience level. Every track ends with a real deployed project.</p>
+  <div class="tracks-grid reveal-group">
+    <div class="track-card">
+      <div class="track-icon">🌱</div>
+      <h3>Beginner Track</h3>
+      <p>Zero experience needed. Scratch → Python basics → your first interactive game by week 8.</p>
+      <div class="track-tags"><span class="ttag">Scratch</span><span class="ttag">Python</span><span class="ttag">Age 12–14</span><span class="ttag">₦25,000</span></div>
+    </div>
+    <div class="track-card popular">
+      <span class="pop-badge">Most popular</span>
+      <div class="track-icon">⚡</div>
+      <h3>Builder Track</h3>
+      <p>For teens with some coding experience. Build a full website with HTML, CSS, and JavaScript — live on the internet by week 8.</p>
+      <div class="track-tags"><span class="ttag">HTML/CSS</span><span class="ttag">JavaScript</span><span class="ttag">Age 13–17</span><span class="ttag">₦35,000</span></div>
+    </div>
+    <div class="track-card">
+      <div class="track-icon">🚀</div>
+      <h3>Advanced Track</h3>
+      <p>For confident coders. Python for data, intro to AI/ML, and build a smart project using real data.</p>
+      <div class="track-tags"><span class="ttag">Python</span><span class="ttag">AI basics</span><span class="ttag">Age 15–18</span><span class="ttag">₦45,000</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CURRICULUM -->
+<section class="surface-bg">
+  <span class="sec-label reveal">Curriculum</span>
+  <h2 class="reveal">8 weeks, week by week</h2>
+  <p class="sec-sub reveal">Builder Track sample &mdash; the most popular programme.</p>
+  <div class="timeline">
+    <div class="tl-row reveal"><div class="tl-dot">W1</div><div class="tl-body"><span class="tl-tag">Mini project</span><div class="tl-title">How the web works</div><div class="tl-desc">Browsers, servers, HTML structure, your first webpage</div></div></div>
+    <div class="tl-row reveal"><div class="tl-dot">W2</div><div class="tl-body"><span class="tl-tag">Mini project</span><div class="tl-title">Styling with CSS</div><div class="tl-desc">Colours, fonts, layouts, flexbox basics</div></div></div>
+    <div class="tl-row reveal"><div class="tl-dot">W3</div><div class="tl-body"><span class="tl-tag">Mini project</span><div class="tl-title">Responsive design</div><div class="tl-desc">Mobile-first, media queries, grid systems</div></div></div>
+    <div class="tl-row reveal"><div class="tl-dot">W4</div><div class="tl-body"><span class="tl-tag">Mini project</span><div class="tl-title">JavaScript basics</div><div class="tl-desc">Variables, functions, events, DOM manipulation</div></div></div>
+    <div class="tl-row reveal"><div class="tl-dot">W5</div><div class="tl-body"><span class="tl-tag">Mini project</span><div class="tl-title">JavaScript in action</div><div class="tl-desc">Interactivity, forms, simple animations</div></div></div>
+    <div class="tl-row reveal"><div class="tl-dot">W6</div><div class="tl-body"><span class="tl-tag">Mini project</span><div class="tl-title">APIs &amp; real data</div><div class="tl-desc">Fetch data from the web, display it dynamically</div></div></div>
+    <div class="tl-row reveal"><div class="tl-dot">W7</div><div class="tl-body"><span class="tl-tag">Final project</span><div class="tl-title">Final project build</div><div class="tl-desc">Design and build your complete personal project</div></div></div>
+    <div class="tl-row final reveal"><div class="tl-dot">&#127891;</div><div class="tl-body"><span class="tl-tag">&#127891; Graduate</span><div class="tl-title">Demo Day &amp; Launch</div><div class="tl-desc">Present, get feedback, deploy it live</div></div></div>
+  </div>
+</section>
+
+<!-- ENROLMENT FORM -->
+<section id="enrol">
+  <span class="sec-label reveal">Enrolment</span>
+  <h2 class="reveal">Secure your spot</h2>
+  <p class="sec-sub reveal">Cohorts fill fast. We confirm your place within 24 hours.</p>
+  <div class="enrol-box reveal">
+    <div id="enrol-form-wrap">
+      <form onsubmit="submitEnrol(event)">
+        <div class="form-grid">
+          <div class="form-group"><label>Student's first name</label><input type="text" placeholder="e.g. Amara" required></div>
+          <div class="form-group"><label>Student's last name</label><input type="text" placeholder="e.g. Okafor" required></div>
+          <div class="form-group"><label>Student's age</label><input type="number" min="12" max="18" placeholder="e.g. 14" required></div>
+          <div class="form-group"><label>Track</label>
+            <select required>
+              <option value="" disabled selected>Select a track</option>
+              <option>Beginner Track — ₦25,000</option>
+              <option>Builder Track — ₦35,000</option>
+              <option>Advanced Track — ₦45,000</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Parent/guardian name</label><input type="text" placeholder="e.g. Mrs. Okafor" required></div>
+          <div class="form-group"><label>WhatsApp number</label><input type="tel" placeholder="+234 800 000 0000" required></div>
+          <div class="form-group full"><label>Email address</label><input type="email" placeholder="parent@email.com" required></div>
+          <div class="form-group full"><label>Prior experience (optional)</label><textarea placeholder="What has your teen tried before, if anything?"></textarea></div>
+        </div>
+        <button type="submit" class="form-submit">Submit enrolment →</button>
+        <p class="form-note">We'll WhatsApp you within 24 hours. Payment via Paystack — card or bank transfer. Limited to 15 students per cohort.</p>
+      </form>
+    </div>
+    <div id="enrol-success" style="display:none;text-align:center;padding:3rem 2rem;">
+      <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+      <h3 style="margin-bottom:.75rem;">Enrolment submitted!</h3>
+      <p style="font-size:.9rem;color:var(--glt);font-weight:300;line-height:1.7;">We'll reach out via WhatsApp within 24 hours. Welcome to LimahCode Academy!</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="surface-bg" id="faq">
+  <span class="sec-label reveal">FAQ</span>
+  <h2 class="reveal">Questions from parents</h2>
+  <div class="faq-list reveal">
+    <details><summary>What does my child need?</summary><div class="faq-ans">A laptop or desktop (Windows, Mac, or Linux), stable internet, and Zoom installed. We'll help set up any other free tools before the first class.</div></details>
+    <details><summary>When are classes held?</summary><div class="faq-ans">Weekend sessions — Saturday mornings and/or Sunday afternoons, Lagos time (WAT). Exact schedule shared upon confirmation. Sessions are 90 minutes each.</div></details>
+    <details><summary>Is there homework?</summary><div class="faq-ans">Yes — small, fun challenges each week taking 30–60 minutes. Our Discord is available for help between sessions.</div></details>
+    <details><summary>What if my child misses a class?</summary><div class="faq-ans">All sessions are recorded and shared within 24 hours. Missing one class won't derail progress, but consistent attendance gives the best outcome.</div></details>
+    <details><summary>How much does it cost?</summary><div class="faq-ans">Beginner: ₦25,000 · Builder: ₦35,000 · Advanced: ₦45,000 per 8-week cohort. Sibling discount of ₦5,000 off per additional student. Payment via Paystack.</div></details>
+    <details><summary>What does my child get at the end?</summary><div class="faq-ans">A LimahCode certificate of completion, a live deployed project, a portfolio entry, and access to our alumni community. Advanced graduates also get a letter of recommendation.</div></details>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="logo">Limah<span>Code</span></a><p>Teaching the next generation of African tech builders. Lagos, Nigeria.</p></div>
+    <div class="footer-col"><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Academy</h4><a href="#tracks">Tracks</a><a href="#enrol">Enrol</a><a href="pricing.html">Fees</a><a href="#faq">FAQs</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="mailto:hello@limahcode.com">hello@limahcode.com</a><a href="#">WhatsApp us</a><a href="#">Instagram: @limahcode</a></div>
+  </div>
+  <div class="footer-bottom"><a href="index.html" class="logo" style="font-size:.95rem;">Limah<span>Code</span></a><p>© 2025 LimahCode. Lagos, Nigeria 🇳🇬</p></div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script>
+(function() {
+  const btn = document.getElementById('theme-btn');
+  if (btn && document.body.classList.contains('light-mode')) btn.textContent = '☀️';
+})();
+</script>
+<script>
+function submitEnrol(e) {
+  e.preventDefault();
+  showSuccess(document.getElementById('enrol-form-wrap'), document.getElementById('enrol-success'));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LimahCode — Build. Teach. Innovate.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ── HOME-ONLY STYLES ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow  { position:absolute; top:-120px; right:-180px; width:600px; height:600px; background:radial-gradient(circle,rgba(26,122,82,.18) 0%,transparent 70%); pointer-events:none; }
+    .hero-glow2 { position:absolute; bottom:-100px; left:-100px; width:400px; height:400px; background:radial-gradient(circle,rgba(232,144,10,.1) 0%,transparent 70%); pointer-events:none; }
+
+    .hero h1 { font-size: clamp(3.5rem, 9vw, 7rem); max-width: 12ch; }
+    .hero h1 .g { color: var(--gl); }
+    .hero h1 .a { color: var(--al); }
+
+    .hero-sub { margin-top:2rem; font-size:1.05rem; font-weight:300; color:var(--glt); max-width:50ch; line-height:1.75; }
+    .hero-actions { margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap; }
+    .hero-stats { margin-top:4rem; display:flex; gap:3rem; flex-wrap:wrap; }
+    .stat-num { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; }
+    .stat-lbl { font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gm); margin-top:.2rem; }
+
+    /* Services grid */
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.05);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+    .svc-card { background:var(--card); padding:2.5rem 2rem; transition:background .2s; }
+    .svc-card:hover { background:#222220; }
+    .svc-icon { width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:1.5rem; }
+    .ic-g { background:rgba(26,122,82,.2); }
+    .ic-b { background:rgba(59,139,212,.2); }
+    .ic-a { background:rgba(232,144,10,.2); }
+    .svc-card h3 { font-size:1.15rem; margin-bottom:.6rem; }
+    .svc-card p { font-size:.88rem; color:var(--glt); line-height:1.7; font-weight:300; }
+    .svc-link { display:inline-block; margin-top:1.25rem; font-size:.8rem; font-weight:500; color:var(--gl); text-decoration:none; }
+    .svc-link:hover { text-decoration:underline; }
+
+    /* Process steps */
+    .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; margin-top:3rem; }
+    .step-num { font-family:'Syne',sans-serif; font-size:2.5rem; font-weight:800; color:rgba(46,170,114,.15); line-height:1; margin-bottom:.75rem; }
+    .step h3 { font-size:1rem; margin-bottom:.5rem; }
+    .step p { font-size:.83rem; color:var(--glt); line-height:1.65; font-weight:300; }
+
+    /* Testimonials */
+    .tgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; margin-top:3rem; }
+    .tcard { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem; }
+    .tcard-quote { font-size:.95rem; color:var(--glt); font-style:italic; line-height:1.75; font-weight:300; margin-bottom:1.25rem; }
+    .tcard-author { display:flex; align-items:center; gap:.75rem; }
+    .avatar { width:38px; height:38px; border-radius:50%; background:var(--green); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:.8rem; font-weight:700; color:#fff; flex-shrink:0; }
+    .tcard-name { font-size:.85rem; font-weight:500; }
+    .tcard-role { font-size:.75rem; color:var(--gm); }
+
+    @media(max-width:640px) {
+      .hero { padding-left:1.5rem; padding-right:1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">Limah<span>Code</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="academy.html">Academy</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:0.75rem;">
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="Switch to light mode">🌙</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="academy.html">Academy</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow glow-animated"></div>
+  <div class="hero-glow2 glow-animated" style="animation-delay:3s;"></div>
+  <div class="badge fade-up">Lagos, Nigeria · Est. 2025</div>
+  <h1 class="fade-up">Build.<br><span class="g">Teach.</span><br><span class="a">Innovate.</span></h1>
+  <p class="hero-sub fade-up delay-1">LimahCode is a software engineering studio, AI &amp; computer vision product lab, and online coding school for Africa's next generation of tech builders.</p>
+  <div class="hero-actions fade-up delay-2">
+    <a href="services.html" class="btn-primary">Explore our work</a>
+    <a href="academy.html" class="btn-outline">Join the Academy →</a>
+  </div>
+  <div class="hero-stats fade-up delay-3">
+    <div><div class="stat-num" data-count="3" data-suffix="">3</div><div class="stat-lbl">Business lines</div></div>
+    <div><div class="stat-num">CV/AI</div><div class="stat-lbl">Our speciality</div></div>
+    <div><div class="stat-num" data-count="100" data-suffix="%">100%</div><div class="stat-lbl">Online-first</div></div>
+    <div><div class="stat-num">🇳🇬</div><div class="stat-lbl">Built in Lagos</div></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Software Engineering</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">Computer Vision & AI</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">Teen Coding Academy</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">Built in Lagos</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">For Africa & Beyond</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">Software Engineering</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">Computer Vision & AI</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">Teen Coding Academy</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">Built in Lagos</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">For Africa & Beyond</span><span class="ticker-dot"> ✦ </span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section>
+  <span class="sec-label reveal">What we do</span>
+  <h2 class="reveal">Three ways we build the future</h2>
+  <p class="sec-sub reveal">From custom software to AI-powered vision products to coding bootcamps — LimahCode operates across three powerful lines.</p>
+  <div class="svc-grid reveal-group">
+    <div class="svc-card">
+      <div class="svc-icon ic-g">🎓</div>
+      <h3>LimahCode Academy</h3>
+      <p>Live online coding bootcamps for teens aged 12–18. Small cohorts, real projects, real mentorship.</p>
+      <a href="academy.html" class="svc-link">Enrol now →</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon ic-b">⚙️</div>
+      <h3>Software Agency</h3>
+      <p>Custom web and mobile applications for businesses and startups. Clean, scalable, delivered on time.</p>
+      <a href="services.html" class="svc-link">See our work →</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon ic-a">👁️</div>
+      <h3>CV &amp; AI Products</h3>
+      <p>Computer vision for security, retail, agriculture and industry. Object detection, smart cameras, AI automation.</p>
+      <a href="services.html" class="svc-link">Partner with us →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROCESS -->
+<section class="surface-bg">
+  <span class="sec-label reveal">How we work</span>
+  <h2 class="reveal">Our process, simplified</h2>
+  <div class="steps reveal-group">
+    <div class="step"><div class="step-num">01</div><h3>Discover</h3><p>Free call to understand your problem, goals, and constraints before writing a single line of code.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>Design &amp; Scope</h3><p>We map the solution, set a realistic timeline, and agree on a clear budget — no surprises.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>Build</h3><p>We build in focused sprints with regular progress demos so you always know where we are.</p></div>
+    <div class="step"><div class="step-num">04</div><h3>Launch &amp; Support</h3><p>We deploy, test, and hand over a live product with documentation and post-launch support.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section>
+  <span class="sec-label reveal">What people say</span>
+  <h2 class="reveal">Early feedback</h2>
+  <div class="tgrid reveal-group">
+    <div class="tcard">
+      <p class="tcard-quote">"The academy gave my son real skills — not just tutorials. He deployed his first website at 14 and couldn't stop talking about it."</p>
+      <div class="tcard-author"><div class="avatar">AO</div><div><div class="tcard-name">Mrs. Adaeze Okafor</div><div class="tcard-role">Parent of a Builder Track graduate</div></div></div>
+    </div>
+    <div class="tcard">
+      <p class="tcard-quote">"LimahCode built our inventory system in 6 weeks and saved us hours of manual work every single day. Best investment we made."</p>
+      <div class="tcard-author"><div class="avatar">BL</div><div><div class="tcard-name">Bello Lawal</div><div class="tcard-role">Electronics retailer, Lagos</div></div></div>
+    </div>
+    <div class="tcard">
+      <p class="tcard-quote">"The computer vision shelf monitor changed how we manage our stores. Out-of-stock issues dropped by over 60% in the first month."</p>
+      <div class="tcard-author"><div class="avatar">CM</div><div><div class="tcard-name">Chioma Mba</div><div class="tcard-role">Retail operations manager</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="green-bg" style="text-align:center;">
+  <span class="sec-label">Ready to start?</span>
+  <h2>Let's build something great together.</h2>
+  <p class="sec-sub" style="margin:.75rem auto 2rem;">Whether you have a project, want to invest, or want to enrol a teen — the door is open.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="contact.html" class="btn-primary">Get in touch</a>
+    <a href="pricing.html" class="btn-outline">See pricing</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">Limah<span>Code</span></a>
+      <p>Software engineering studio, computer vision lab, and online coding school for teens. Lagos, Nigeria.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About us</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Academy</h4>
+      <a href="academy.html">Programmes</a>
+      <a href="academy.html#enrol">Enrol now</a>
+      <a href="pricing.html">Fees</a>
+      <a href="academy.html#faq">FAQs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="#">Instagram: @limahcode</a>
+      <a href="#">Twitter: @limahcode</a>
+      <a href="mailto:limahcode192025@gmail.com">limahcode192025@gmail.com</a>
+      <a href="#">WhatsApp us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <a href="index.html" class="logo" style="font-size:.95rem;">Limah<span>Code</span></a>
+    <p>Build. Teach. Innovate. · Lagos, Nigeria 🇳🇬</p>
+    <p>© 2025 LimahCode. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script>
+/* Count-up on hero stats when visible */
+(function() {
+  const stats = document.querySelectorAll('.stat-num[data-count]');
+  if (!stats.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        animateCount(el, target, suffix, 1400);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  stats.forEach(el => obs.observe(el));
+})();
+
+/* Sync theme toggle icon on load */
+(function() {
+  const btn = document.getElementById('theme-btn');
+  if (btn && document.body.classList.contains('light-mode')) btn.textContent = '☀️';
+})();
+</script>
+</body>
+</html>

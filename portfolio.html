@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — LimahCode</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .page-hero { padding:9rem 2.5rem 4rem; }
+    .page-hero h1 { font-size:clamp(2.5rem,6vw,5rem); }
+    .page-hero h1 span { color:var(--gl); }
+    .page-hero p { margin-top:1.25rem; font-size:1rem; font-weight:300; color:var(--glt); max-width:52ch; line-height:1.75; }
+
+    .filter-bar { padding:0 2.5rem 2rem; display:flex; gap:.5rem; flex-wrap:wrap; }
+    .flt-btn { padding:.45rem 1.1rem; font-size:.78rem; font-weight:500; border:1px solid rgba(255,255,255,.1); border-radius:6px; cursor:pointer; color:var(--glt); background:transparent; font-family:'DM Sans',sans-serif; transition:all .2s; }
+    .flt-btn.active { background:var(--green); border-color:var(--green); color:#fff; }
+    .flt-btn:hover:not(.active) { border-color:rgba(46,170,114,.4); color:var(--white); }
+
+    .proj-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; }
+    .proj-card { background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:border-color .2s, transform .2s; cursor:pointer; }
+    .proj-card:hover { border-color:rgba(46,170,114,.35); transform:translateY(-3px); }
+    .thumb { height:175px; display:flex; align-items:center; justify-content:center; position:relative; font-size:3rem; }
+    .tw { background:linear-gradient(135deg,#0D3D29,#1A7A52); }
+    .tc { background:linear-gradient(135deg,#1a1430,#2d1f52); }
+    .ta { background:linear-gradient(135deg,#0a1929,#0d3158); }
+    .te { background:linear-gradient(135deg,#2a1a00,#6b3a00); }
+    .proj-lbl { position:absolute; top:.75rem; left:.75rem; font-size:.65rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; padding:.22rem .6rem; border-radius:100px; }
+    .lw { background:rgba(46,170,114,.18); color:var(--gl); border:1px solid rgba(46,170,114,.28); }
+    .lc { background:rgba(133,183,235,.12); color:#85B7EB; border:1px solid rgba(133,183,235,.22); }
+    .la { background:rgba(59,139,212,.12); color:var(--bl); border:1px solid rgba(59,139,212,.22); }
+    .le { background:rgba(250,199,64,.1); color:var(--al); border:1px solid rgba(250,199,64,.18); }
+    .proj-body { padding:1.5rem; }
+    .proj-body h3 { font-size:1rem; margin-bottom:.4rem; }
+    .proj-body p { font-size:.83rem; color:var(--glt); line-height:1.65; font-weight:300; margin-bottom:1rem; }
+    .proj-stats { display:flex; gap:1.25rem; margin-bottom:.9rem; }
+    .ps-val { font-family:'Syne',sans-serif; font-size:.92rem; font-weight:700; }
+    .ps-lbl { font-size:.65rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gm); }
+    .proj-tags { display:flex; flex-wrap:wrap; gap:.35rem; }
+    .ptag { font-size:.68rem; padding:.18rem .6rem; border-radius:100px; border:1px solid rgba(255,255,255,.1); color:var(--glt); }
+
+    @media(max-width:640px) { .page-hero, .filter-bar { padding-left:1.5rem; padding-right:1.5rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Limah<span>Code</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+    <a href="academy.html">Academy</a><a href="portfolio.html" class="active">Portfolio</a>
+    <a href="pricing.html">Pricing</a><a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="Switch to light mode">&#127769;</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+  <a href="academy.html">Academy</a><a href="portfolio.html">Portfolio</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div class="badge">Our work</div>
+  <h1>Built by <span>LimahCode.</span></h1>
+  <p>Software projects, CV/AI systems, and academy outcomes. Every project starts with a problem worth solving.</p>
+</div>
+
+<div class="filter-bar">
+  <button class="flt-btn active" onclick="filterProjects('all', this)">All work</button>
+  <button class="flt-btn" onclick="filterProjects('web', this)">Web & apps</button>
+  <button class="flt-btn" onclick="filterProjects('cv', this)">CV / AI</button>
+  <button class="flt-btn" onclick="filterProjects('edu', this)">Academy</button>
+</div>
+
+<section style="padding-top:0;">
+  <div class="proj-grid" id="proj-grid">
+
+    <div class="proj-card reveal" data-cat="cv" onclick="openModal('cv1')">
+      <div class="thumb tc"><span>👁️</span><span class="proj-lbl lc">CV / AI</span></div>
+      <div class="proj-body"><h3>Smart Retail Shelf Monitor</h3><p>Computer vision system detecting out-of-stock shelves in real time and alerting managers via SMS.</p><div class="proj-stats"><div><div class="ps-val">94%</div><div class="ps-lbl">Accuracy</div></div><div><div class="ps-val">&lt;2s</div><div class="ps-lbl">Detection</div></div><div><div class="ps-val">3 stores</div><div class="ps-lbl">Deployed</div></div></div><div class="proj-tags"><span class="ptag">Python</span><span class="ptag">YOLOv8</span><span class="ptag">OpenCV</span><span class="ptag">Twilio</span></div></div>
+    </div>
+
+    <div class="proj-card reveal" data-cat="web" onclick="openModal('web1')">
+      <div class="thumb tw"><span>🛒</span><span class="proj-lbl lw">Web app</span></div>
+      <div class="proj-body"><h3>Lagos Food Vendor Marketplace</h3><p>Full-stack e-commerce platform connecting local Lagos food vendors with online customers.</p><div class="proj-stats"><div><div class="ps-val">40+</div><div class="ps-lbl">Vendors</div></div><div><div class="ps-val">6 wks</div><div class="ps-lbl">Build time</div></div></div><div class="proj-tags"><span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Paystack</span></div></div>
+    </div>
+
+    <div class="proj-card reveal" data-cat="cv" onclick="openModal('cv2')">
+      <div class="thumb tc"><span>🔐</span><span class="proj-lbl lc">CV / AI</span></div>
+      <div class="proj-body"><h3>Facial Access Control System</h3><p>Office entry system using facial recognition to replace keycards, with live admin dashboard.</p><div class="proj-stats"><div><div class="ps-val">99.1%</div><div class="ps-lbl">Recognition</div></div><div><div class="ps-val">0.4s</div><div class="ps-lbl">Response</div></div></div><div class="proj-tags"><span class="ptag">Python</span><span class="ptag">face_recognition</span><span class="ptag">Raspberry Pi</span></div></div>
+    </div>
+
+    <div class="proj-card reveal" data-cat="web" onclick="openModal('web2')">
+      <div class="thumb ta"><span>📱</span><span class="proj-lbl la">Mobile app</span></div>
+      <div class="proj-body"><h3>Church Management App</h3><p>Mobile app for attendance, tithes, events, and member directory for an 800-member Lagos church.</p><div class="proj-stats"><div><div class="ps-val">800+</div><div class="ps-lbl">Members</div></div><div><div class="ps-val">iOS+Android</div><div class="ps-lbl">Platforms</div></div></div><div class="proj-tags"><span class="ptag">React Native</span><span class="ptag">Firebase</span><span class="ptag">Expo</span></div></div>
+    </div>
+
+    <div class="proj-card reveal" data-cat="edu" onclick="openModal('edu1')">
+      <div class="thumb te"><span>🎓</span><span class="proj-lbl le">Academy</span></div>
+      <div class="proj-body"><h3>Cohort 1 — Builder Track</h3><p>12 teens aged 13–16, 8 weeks, every student deployed a live personal website by demo day.</p><div class="proj-stats"><div><div class="ps-val">12</div><div class="ps-lbl">Graduates</div></div><div><div class="ps-val">100%</div><div class="ps-lbl">Completion</div></div></div><div class="proj-tags"><span class="ptag">HTML/CSS</span><span class="ptag">JavaScript</span><span class="ptag">Netlify</span></div></div>
+    </div>
+
+    <div class="proj-card reveal" data-cat="web" onclick="openModal('web3')">
+      <div class="thumb tw"><span>📊</span><span class="proj-lbl lw">Web app</span></div>
+      <div class="proj-body"><h3>SME Inventory & Sales Tracker</h3><p>Dashboard for a Lagos electronics retailer to track stock, sales, and auto-generate monthly reports.</p><div class="proj-stats"><div><div class="ps-val">3hrs</div><div class="ps-lbl">Saved/week</div></div><div><div class="ps-val">Real-time</div><div class="ps-lbl">Alerts</div></div></div><div class="proj-tags"><span class="ptag">Vue.js</span><span class="ptag">Supabase</span><span class="ptag">Chart.js</span></div></div>
+    </div>
+
+    <div class="proj-card reveal" data-cat="web" onclick="openModal('hr1')">
+      <div class="thumb tw"><span>💼</span><span class="proj-lbl lw">Web app</span></div>
+      <div class="proj-body"><h3>AI-Powered HR Platform</h3><p>Live platform connecting employers and candidates with AI CV scanning, automated JD generation, and custom candidate assessments.</p><div class="proj-stats"><div><div class="ps-val">Live</div><div class="ps-lbl">Platform</div></div><div><div class="ps-val">AI</div><div class="ps-lbl">Powered</div></div></div><div class="proj-tags"><span class="ptag">Laravel</span><span class="ptag">React</span><span class="ptag">MySQL</span><span class="ptag">Python</span></div></div>
+    </div>
+    
+    <div class="proj-card reveal" data-cat="cv" onclick="openModal('agora1')">
+      <div class="thumb tc"><span>🌾</span><span class="proj-lbl lc">AI / App</span></div>
+      <div class="proj-body"><h3>Agora E-commerce App</h3><p>AgriTech marketplace with an AI inference pipeline for automated quality grading of commodities like tomatoes, yams, and cassava.</p><div class="proj-stats"><div><div class="ps-val">8</div><div class="ps-lbl">Commodities</div></div><div><div class="ps-val">4</div><div class="ps-lbl">Quality Tiers</div></div></div><div class="proj-tags"><span class="ptag">Python</span><span class="ptag">React Native</span><span class="ptag">Laravel</span><span class="ptag">Next.js</span></div></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="green-bg" style="text-align:center;">
+  <span class="sec-label reveal">Start your project</span>
+  <h2 class="reveal">Let's add yours to this list.</h2>
+  <p class="sec-sub" style="margin:.75rem auto 2rem;">Every idea deserves to be built properly. Let's talk.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="contact.html" class="btn-primary">Start a project →</a>
+    <a href="pricing.html" class="btn-outline">View pricing</a>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal-body"></div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="logo">Limah<span>Code</span></a><p>Build. Teach. Innovate. Lagos, Nigeria.</p></div>
+    <div class="footer-col"><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Academy</h4><a href="academy.html">Enrol</a><a href="pricing.html">Fees</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="mailto:hello@limahcode.com">hello@limahcode.com</a><a href="#">Instagram: @limahcode</a></div>
+  </div>
+  <div class="footer-bottom"><a href="index.html" class="logo" style="font-size:.95rem;">Limah<span>Code</span></a><p>© 2025 LimahCode. Lagos 🇳🇬</p></div>
+</footer>
+
+<script src="js/nav.js"></script>
+
+<script>
+(function(){
+  var btn=document.getElementById("theme-btn");
+  if(btn && document.body.classList.contains("light-mode")) btn.textContent="\u2600\uFE0F";
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LimahCode Academy — A4 Flyer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #e0e0e0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 2rem; font-family: 'DM Sans', sans-serif; }
+
+  .flyer {
+    width: 210mm;
+    min-height: 297mm;
+    background: #0E0E0C;
+    color: #F5F3EE;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* TOP ACCENT BAR */
+  .top-bar { background: #1A7A52; height: 8px; width: 100%; flex-shrink: 0; }
+
+  /* HEADER */
+  .header {
+    padding: 10mm 14mm 8mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+  .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:22pt; letter-spacing:-0.02em; color:#F5F3EE; }
+  .logo span { color:#2EAA72; }
+  .cohort-pill { background:#1A7A52; color:#F5F3EE; font-size:7pt; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; padding:4px 10px; border-radius:100px; }
+
+  /* HERO AREA */
+  .hero-area {
+    background: linear-gradient(135deg, #0D3D29 0%, #1A7A52 100%);
+    padding: 10mm 14mm 12mm;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero-area::before {
+    content: '{ }';
+    position: absolute;
+    right: 10mm; top: 5mm;
+    font-family:'Syne',sans-serif;
+    font-size: 80pt;
+    font-weight:800;
+    color: rgba(255,255,255,0.06);
+    line-height:1;
+  }
+  .eyebrow { font-size:8pt; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9FE1CB; margin-bottom:4mm; }
+  .hero-title { font-family:'Syne',sans-serif; font-size:34pt; font-weight:800; line-height:1.05; letter-spacing:-0.03em; color:#F5F3EE; max-width:13ch; }
+  .hero-title span { color:#FAC740; }
+  .hero-sub { margin-top:4mm; font-size:10pt; font-weight:300; color:rgba(245,243,238,0.8); max-width:42ch; line-height:1.6; }
+
+  /* META PILLS ROW */
+  .meta-row { display:flex; gap:3mm; flex-wrap:wrap; margin-top:6mm; }
+  .meta-pill { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:100px; padding:3px 10px; font-size:8pt; font-weight:500; color:#F5F3EE; display:flex; align-items:center; gap:4px; }
+  .meta-dot { width:5px; height:5px; background:#2EAA72; border-radius:50%; }
+
+  /* TRACKS SECTION */
+  .section { padding: 7mm 14mm; flex-shrink: 0; }
+  .section-label { font-size:7.5pt; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#2EAA72; margin-bottom:4mm; }
+  .tracks-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3mm; }
+  .track { background:#1C1C18; border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:4mm; }
+  .track.featured { border-color:#1A7A52; background:rgba(26,122,82,0.12); }
+  .track-icon { font-size:14pt; margin-bottom:2mm; }
+  .track-name { font-family:'Syne',sans-serif; font-size:9pt; font-weight:700; margin-bottom:1.5mm; }
+  .track-age { font-size:7pt; color:#2EAA72; font-weight:500; margin-bottom:1.5mm; }
+  .track-desc { font-size:7.5pt; color:#C4C2BA; line-height:1.5; font-weight:300; }
+  .track-price { margin-top:2.5mm; font-family:'Syne',sans-serif; font-size:10pt; font-weight:800; color:#2EAA72; }
+  .featured-mark { display:inline-block; margin-top:1.5mm; font-size:6pt; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; background:#1A7A52; color:#F5F3EE; padding:2px 6px; border-radius:100px; }
+
+  /* WHAT YOU LEARN */
+  .learn-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2mm; }
+  .learn-item { display:flex; align-items:flex-start; gap:2mm; font-size:8pt; color:#C4C2BA; line-height:1.4; font-weight:300; }
+  .learn-check { color:#2EAA72; font-weight:700; flex-shrink:0; margin-top:1px; }
+
+  /* WHAT YOU GET STRIP */
+  .get-strip { background:#161612; border-top:1px solid rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.05); padding:5mm 14mm; display:flex; gap:6mm; flex-wrap:wrap; flex-shrink:0; }
+  .get-item { display:flex; flex-direction:column; align-items:center; gap:1mm; flex:1; min-width:25mm; }
+  .get-icon { font-size:14pt; }
+  .get-label { font-size:7pt; font-weight:500; text-align:center; color:#C4C2BA; }
+
+  /* DIVIDER */
+  .hr { height:1px; background:rgba(255,255,255,0.06); margin:0 14mm; }
+
+  /* CTA SECTION */
+  .cta-section {
+    background: #1A7A52;
+    padding: 6mm 14mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    flex: 1;
+    align-items: center;
+  }
+  .cta-left .cta-headline { font-family:'Syne',sans-serif; font-size:13pt; font-weight:800; color:#F5F3EE; margin-bottom:1.5mm; }
+  .cta-left .cta-sub { font-size:8pt; color:rgba(245,243,238,0.75); font-weight:300; }
+  .cta-right { text-align:right; flex-shrink:0; }
+  .cta-whatsapp { font-family:'Syne',sans-serif; font-size:11pt; font-weight:800; color:#FAC740; margin-bottom:1mm; }
+  .cta-email { font-size:8pt; color:rgba(245,243,238,0.75); }
+  .cta-social { font-size:7.5pt; color:rgba(245,243,238,0.6); margin-top:1mm; }
+
+  /* BOTTOM BAR */
+  .bottom-bar {
+    background: #0D3D29;
+    padding: 3mm 14mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .bottom-bar p { font-size:6.5pt; color:rgba(245,243,238,0.5); }
+  .bottom-logo { font-family:'Syne',sans-serif; font-size:9pt; font-weight:800; color:#F5F3EE; }
+  .bottom-logo span { color:#2EAA72; }
+
+  /* PRINT AND THEME */
+  .flyer.light-theme {
+    background: #ffffff;
+    color: #111111;
+  }
+  .flyer.light-theme .hero-title, .flyer.light-theme .logo, .flyer.light-theme .cta-headline { color: #111; }
+  .flyer.light-theme .hero-sub, .flyer.light-theme .track-desc, .flyer.light-theme .learn-item, .flyer.light-theme .get-label { color: #444; }
+  .flyer.light-theme .track { background: #fdfdfd; border-color: #eee; }
+  .flyer.light-theme .track-name { color: #111; }
+  .flyer.light-theme .get-strip { background: #f8f8f8; border-color: #eee; }
+  .flyer.light-theme .meta-pill { background: rgba(0,0,0,0.04); color: #222; border-color: #ddd; }
+  .flyer.light-theme .cta-sub, .flyer.light-theme .cta-email, .flyer.light-theme .cta-social { color: rgba(255,255,255,0.95); }
+  .flyer.light-theme .bottom-bar p { color: rgba(255,255,255,0.8); }
+
+  /* Controls */
+  .controls { position:fixed; bottom:2rem; right:2rem; display:flex; gap:1rem; z-index: 100; }
+  .btn { background:#1A7A52; color:#fff; font-family:'Syne',sans-serif; font-size:.85rem; font-weight:700; padding:.7rem 1.4rem; border:none; border-radius:8px; cursor:pointer; box-shadow: 0 4px 12px rgba(26,122,82,0.3); transition: transform 0.2s, background 0.2s; }
+  .btn:hover { background:#2EAA72; transform: translateY(-2px); }
+  
+  @media print { 
+    .controls { display:none; } 
+    body { background: white; padding: 0; }
+    .flyer { width:210mm; min-height:297mm; box-shadow:none; }
+  }
+
+  /* Editable fields hover */
+  [contenteditable="true"] {
+    transition: outline 0.2s, background 0.2s;
+  }
+  [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+    outline: 1px dashed rgba(250,199,64,0.8);
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    cursor: text;
+  }
+  .flyer.light-theme [contenteditable="true"]:hover, .flyer.light-theme [contenteditable="true"]:focus {
+    background: rgba(0,0,0,0.05);
+    outline: 1px dashed rgba(26,122,82,0.8);
+  }
+
+  /* QR Code */
+  .qr-code { width: 65px; height: 65px; background: #fff; padding: 4px; border-radius: 6px; margin-left: 15px; flex-shrink: 0; }
+  .cta-flex { display: flex; align-items: center; justify-content: flex-end; }
+</style>
+</head>
+<body>
+
+<div class="flyer">
+  <div class="top-bar"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">Limah<span>Code</span></div>
+    <div class="cohort-pill" contenteditable="true">Now enrolling · Cohort 1 · 2026</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero-area">
+    <div class="eyebrow">Online coding school for young Africans</div>
+    <div class="hero-title">Your child can learn to <span contenteditable="true">code</span> this term.</div>
+    <div class="hero-sub">Live, expert-led coding classes for teens aged 12–18. Small groups, real projects, and a certificate at the end. No experience needed.</div>
+    <div class="meta-row">
+      <div class="meta-pill"><div class="meta-dot"></div>Age 12–18</div>
+      <div class="meta-pill"><div class="meta-dot"></div>Live via Zoom</div>
+      <div class="meta-pill"><div class="meta-dot"></div>Weekends only</div>
+      <div class="meta-pill"><div class="meta-dot"></div>8 weeks</div>
+      <div class="meta-pill"><div class="meta-dot"></div>Max 15 students</div>
+    </div>
+  </div>
+
+  <!-- TRACKS -->
+  <div class="section">
+    <div class="section-label">Choose a track</div>
+    <div class="tracks-grid">
+      <div class="track">
+        <div class="track-icon">🌱</div>
+        <div class="track-name" contenteditable="true">Beginner</div>
+        <div class="track-age" contenteditable="true">Age 12–14 · No experience</div>
+        <div class="track-desc" contenteditable="true">Start with Scratch, learn Python basics, and build your first game.</div>
+        <div class="track-price" contenteditable="true">₦25,000</div>
+      </div>
+      <div class="track featured">
+        <div class="track-icon">⚡</div>
+        <div class="track-name" contenteditable="true">cohort 1: Builder</div>
+        <div class="track-age" contenteditable="true">Age 12–17 · Some coding</div>
+        <div class="track-desc" contenteditable="true">Build a real website with HTML, CSS, and JavaScript — live on the internet.</div>
+        <div class="track-price" contenteditable="true">₦35,000</div>
+        <div class="featured-mark">Most popular</div>
+      </div>
+      <div class="track">
+        <div class="track-icon">🚀</div>
+        <div class="track-name" contenteditable="true">cohort 2: Advanced</div>
+        <div class="track-age" contenteditable="true">Age 15–18 · Confident coders</div>
+        <div class="track-desc" contenteditable="true">Python for data, intro to AI, and build a smart project using real data.</div>
+        <div class="track-price" contenteditable="true">₦45,000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT THEY LEARN -->
+  <div class="section" style="padding-top:0;">
+    <div class="section-label">What your child will learn</div>
+    <div class="learn-grid">
+      <div class="learn-item"><span class="learn-check">✓</span><span>How computers and the internet actually work</span></div>
+      <div class="learn-item"><span class="learn-check">✓</span><span>Write real code in Python and/or JavaScript</span></div>
+      <div class="learn-item"><span class="learn-check">✓</span><span>Design and build their own website or app</span></div>
+      <div class="learn-item"><span class="learn-check">✓</span><span>Debug problems independently — a key life skill</span></div>
+      <div class="learn-item"><span class="learn-check">✓</span><span>Present and deploy a live project by graduation</span></div>
+      <div class="learn-item"><span class="learn-check">✓</span><span>Collaborate with other young coders across Nigeria</span></div>
+    </div>
+  </div>
+
+  <!-- WHAT THEY GET -->
+  <div class="get-strip">
+    <div class="get-item"><div class="get-icon">🎓</div><div class="get-label">Certificate of completion</div></div>
+    <div class="get-item"><div class="get-icon">🌐</div><div class="get-label">Live deployed project</div></div>
+    <div class="get-item"><div class="get-icon">💬</div><div class="get-label">Discord community</div></div>
+    <div class="get-item"><div class="get-icon">📹</div><div class="get-label">Session recordings</div></div>
+    <div class="get-item"><div class="get-icon">👥</div><div class="get-label">Alumni network</div></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-left">
+      <div class="cta-headline">Ready to enrol your teen?</div>
+      <div class="cta-sub">Spots are limited to 15 students. Secure your place today.<br>Payment via Paystack — card or bank transfer accepted.</div>
+    </div> 
+    <div class="cta-flex">
+      <div class="cta-right">
+        <div class="cta-whatsapp" contenteditable="true">WhatsApp: +234 80 250 3499</div>
+        <div class="cta-email" contenteditable="true">limahcode192025.com</div>
+        <div class="cta-social" contenteditable="true">@limahcode on Instagram · Twitter · LinkedIn</div>
+      </div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://limahcode192025.com/academy&margin=0" alt="QR Code" class="qr-code">
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar">
+    <div class="bottom-logo">Limah<span>Code</span></div>
+    <p>Build. Teach. Innovate. · Lagos, Nigeria 🇳🇬 · limahcode192025.com</p>
+    <p>© 2025 LimahCode</p>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" onclick="document.querySelector('.flyer').classList.toggle('light-theme')">🌗 Toggle Theme</button>
+  <button class="btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+</div>
+
+</body>
+</html>

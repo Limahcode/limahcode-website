@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — LimahCode</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 72px);
+      margin-top: 72px;
+    }
+    /* Left info panel */
+    .c-left {
+      background: var(--gd);
+      padding: 5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .c-left::before { content:''; position:absolute; bottom:-100px; left:-80px; width:350px; height:350px; background:radial-gradient(circle,rgba(46,170,114,.15) 0%,transparent 70%); pointer-events:none; }
+    .c-left h1 { font-size:clamp(2rem,4vw,3.2rem); margin-bottom:1rem; }
+    .c-left > p { font-size:.92rem; font-weight:300; color:rgba(245,243,238,.7); line-height:1.75; max-width:36ch; margin-bottom:3rem; }
+
+    .c-methods { display:flex; flex-direction:column; gap:.65rem; }
+    .c-method { display:flex; align-items:center; gap:1rem; padding:.9rem 1.2rem; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:10px; color:var(--white); transition:background .2s, border-color .2s; cursor:pointer; text-decoration:none; }
+    .c-method:hover { background:rgba(255,255,255,.09); border-color:rgba(46,170,114,.4); }
+    .cm-icon { width:36px; height:36px; border-radius:8px; background:rgba(46,170,114,.18); display:flex; align-items:center; justify-content:center; font-size:.95rem; flex-shrink:0; }
+    .cm-lbl { font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gm); font-weight:500; margin-bottom:.12rem; }
+    .cm-val { font-size:.88rem; font-weight:500; }
+
+    /* Right form panel */
+    .c-right {
+      background: var(--black);
+      padding: 5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .c-right h2 { font-size:1.5rem; margin-bottom:.35rem; }
+    .c-right > p { font-size:.85rem; color:var(--glt); font-weight:300; margin-bottom:1.75rem; }
+
+    .type-tabs { display:flex; gap:.45rem; margin-bottom:1.75rem; flex-wrap:wrap; }
+    .type-tab { padding:.45rem .95rem; font-size:.78rem; font-weight:500; border:1px solid rgba(255,255,255,.1); border-radius:6px; cursor:pointer; color:var(--glt); background:transparent; font-family:'DM Sans',sans-serif; transition:all .2s; }
+    .type-tab.active { background:var(--green); border-color:var(--green); color:#fff; }
+    .type-tab:hover:not(.active) { border-color:rgba(46,170,114,.4); color:var(--white); }
+
+    .success-box { display:none; text-align:center; padding:4rem 2rem; }
+    .success-box .si { font-size:3rem; margin-bottom:1.25rem; }
+    .success-box h3 { font-size:1.4rem; margin-bottom:.75rem; }
+    .success-box p { font-size:.9rem; color:var(--glt); font-weight:300; line-height:1.7; }
+
+    @media(max-width:900px) {
+      .contact-wrap { grid-template-columns:1fr; }
+      .c-left { padding:4rem 2rem 3rem; }
+      .c-right { padding:3rem 2rem; }
+    }
+    @media(max-width:640px) {
+      .c-left, .c-right { padding:3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Limah<span>Code</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+    <a href="academy.html">Academy</a><a href="portfolio.html">Portfolio</a>
+    <a href="pricing.html">Pricing</a><a href="contact.html" class="nav-cta active">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="Switch to light mode">&#127769;</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+  <a href="academy.html">Academy</a><a href="portfolio.html">Portfolio</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="contact-wrap">
+
+  <!-- LEFT: CONTACT INFO -->
+  <div class="c-left">
+    <span class="sec-label reveal">Get in touch</span>
+    <h1>Let's talk about your project.</h1>
+    <p>Whether you want to build software, explore a CV/AI partnership, or enrol a teen — we're ready. Expect a reply within 24 hours.</p>
+    <div class="c-methods">
+      <a href="mailto:hello@limahcode.com" class="c-method">
+        <div class="cm-icon">✉️</div><div><div class="cm-lbl">Email</div><div class="cm-val">hello@limahcode.com</div></div>
+      </a>
+      <a href="https://wa.me/2348000000000" class="c-method">
+        <div class="cm-icon">💬</div><div><div class="cm-lbl">WhatsApp</div><div class="cm-val">+234 800 000 0000</div></div>
+      </a>
+      <a href="https://instagram.com/limahcode" class="c-method">
+        <div class="cm-icon">📸</div><div><div class="cm-lbl">Instagram</div><div class="cm-val">@limahcode</div></div>
+      </a>
+      <a href="https://linkedin.com/company/limahcode" class="c-method">
+        <div class="cm-icon">🔗</div><div><div class="cm-lbl">LinkedIn</div><div class="cm-val">LimahCode</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div class="c-right">
+    <div id="contact-form-wrap">
+      <h2 class="reveal">Send us a message</h2>
+      <p>Select your enquiry type and fill in the details.</p>
+
+      <div class="type-tabs">
+        <button class="type-tab active" onclick="setEnquiryType('software', this)">Software project</button>
+        <button class="type-tab" onclick="setEnquiryType('ai', this)">CV / AI</button>
+        <button class="type-tab" onclick="setEnquiryType('academy', this)">Academy</button>
+        <button class="type-tab" onclick="setEnquiryType('general', this)">General</button>
+      </div>
+
+      <form onsubmit="submitContact(event)">
+        <div class="form-grid">
+          <div class="form-group"><label>Your name</label><input type="text" placeholder="Full name" required></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com" required></div>
+          <div class="form-group"><label>WhatsApp</label><input type="tel" placeholder="+234 800 000 0000"></div>
+
+          <!-- SOFTWARE fields -->
+          <div class="form-group hidden" id="cf-budget">
+            <label>Budget range</label>
+            <select><option value="" disabled selected>Select range</option><option>Under ₦150,000</option><option>₦150k–₦300k</option><option>₦300k–₦600k</option><option>₦600k–₦1M</option><option>Over ₦1M</option></select>
+          </div>
+          <div class="form-group hidden" id="cf-timeline">
+            <label>Timeline</label>
+            <select><option value="" disabled selected>When do you need it?</option><option>ASAP</option><option>1 month</option><option>1–3 months</option><option>3+ months</option><option>Flexible</option></select>
+          </div>
+
+          <!-- AI fields -->
+          <div class="form-group hidden full" id="cf-usecase">
+            <label>CV/AI use case</label>
+            <select><option value="" disabled selected>Industry/use case</option><option>Security / surveillance</option><option>Retail / inventory</option><option>Agriculture</option><option>Healthcare</option><option>Industrial</option><option>Other</option></select>
+          </div>
+
+          <!-- ACADEMY fields -->
+          <div class="form-group hidden" id="cf-age"><label>Student's age</label><input type="number" min="12" max="18" placeholder="e.g. 14"></div>
+          <div class="form-group hidden" id="cf-track">
+            <label>Track interest</label>
+            <select><option value="" disabled selected>Select a track</option><option>Beginner</option><option>Builder</option><option>Advanced</option><option>Not sure</option></select>
+          </div>
+
+          <div class="form-group full">
+            <label id="msg-label">Describe your project</label>
+            <textarea placeholder="Tell us about your project or question..." required></textarea>
+          </div>
+          <div class="form-group full">
+            <label>How did you find us?</label>
+            <select><option value="" disabled selected>Select one</option><option>Instagram</option><option>Twitter/X</option><option>LinkedIn</option><option>WhatsApp</option><option>Google</option><option>Referral</option><option>Other</option></select>
+          </div>
+        </div>
+        <button type="submit" class="form-submit">Send message →</button>
+        <p class="form-note">We reply within 24 hours. Your information is never shared with third parties.</p>
+      </form>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-box" id="contact-success">
+      <div class="si">✅</div>
+      <h3>Message received!</h3>
+      <p>We'll get back to you within 24 hours. Check your WhatsApp and email. Thanks for reaching out to LimahCode.</p>
+      <button class="btn-primary" style="margin-top:2rem;" onclick="resetContactForm()">Send another message</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="logo">Limah<span>Code</span></a><p>Build. Teach. Innovate. Lagos, Nigeria.</p></div>
+    <div class="footer-col"><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="portfolio.html">Portfolio</a></div>
+    <div class="footer-col"><h4>Academy</h4><a href="academy.html">Enrol</a><a href="pricing.html">Fees</a><a href="academy.html#faq">FAQs</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="mailto:hello@limahcode.com">hello@limahcode.com</a><a href="#">WhatsApp us</a><a href="#">Instagram: @limahcode</a></div>
+  </div>
+  <div class="footer-bottom"><a href="index.html" class="logo" style="font-size:.95rem;">Limah<span>Code</span></a><p>© 2025 LimahCode. Lagos, Nigeria 🇳🇬</p></div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script>
+function submitContact(e) {
+  e.preventDefault();
+  showSuccess(document.getElementById('contact-form-wrap'), document.getElementById('contact-success'));
+}
+function resetContactForm() {
+  resetForm(document.getElementById('contact-form-wrap'), document.getElementById('contact-success'));
+}
+</script>
+
+<script>
+(function(){
+  var btn=document.getElementById("theme-btn");
+  if(btn && document.body.classList.contains("light-mode")) btn.textContent="\u2600\uFE0F";
+})();
+</script>
+</body>
+</html>
