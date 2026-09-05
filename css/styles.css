@@ -615,3 +615,95 @@ footer {
   .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 }
+
+
+/* ============================================
+   FLOATING WHATSAPP CALL-TO-ACTION (ALL PAGES)
+   ============================================ */
+.whatsapp-float-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.whatsapp-float-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45), 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+.whatsapp-float-btn svg {
+  width: 32px;
+  height: 32px;
+  fill: #ffffff;
+  transition: transform 0.2s;
+}
+
+.whatsapp-float-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.6), 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.whatsapp-float-btn::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  animation: wa-pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  pointer-events: none;
+}
+
+@keyframes wa-pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 0; }
+  100% { transform: scale(0.95); opacity: 0; }
+}
+
+.whatsapp-float-label {
+  background: #0E0E0C;
+  color: #F5F3EE;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid rgba(46, 170, 114, 0.3);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  white-space: nowrap;
+  pointer-events: none;
+  order: -1;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+@media (max-width: 640px) {
+  .whatsapp-float-widget {
+    bottom: 18px;
+    right: 18px;
+  }
+  .whatsapp-float-btn {
+    width: 52px;
+    height: 52px;
+  }
+  .whatsapp-float-btn svg {
+    width: 28px;
+    height: 28px;
+  }
+  .whatsapp-float-label {
+    display: none;
+  }
+}

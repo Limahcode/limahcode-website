@@ -323,3 +323,73 @@ function animateCount(el, target, suffix, duration) {
   }
   requestAnimationFrame(step);
 }
+
+
+/* ============================================
+   PERFORMANCE & ENGAGEMENT TELEMETRY
+   ============================================ */
+function trackLimahEvent(eventType, meta) {
+  try {
+    const payload = {
+      event_type: eventType,
+      page: window.location.pathname.split('/').pop() || 'index.html',
+      referrer: document.referrer || '',
+      device: window.innerWidth <= 768 ? 'Mobile' : 'Desktop',
+      meta: meta || {}
+    };
+    const endpoint = 'https://limahcode-web-adventure.onrender.com/api/track';
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(endpoint, JSON.stringify(payload));
+    } else {
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function() {});
+    }
+  } catch (e) {}
+}
+
+/* ============================================
+   FLOATING WHATSAPP CALL-TO-ACTION (ALL PAGES)
+   ============================================ */
+(function initFloatingWhatsAppCTA() {
+  function mount() {
+    if (document.getElementById('whatsapp-floating-cta')) return;
+    
+    const widget = document.createElement('div');
+    widget.id = 'whatsapp-floating-cta';
+    widget.className = 'whatsapp-float-widget';
+
+    const defaultMsg = encodeURIComponent("Hello LimahCode! I'm browsing your website and would like to make an inquiry.");
+    const waUrl = 'https://wa.me/2348025034999?text=' + defaultMsg;
+
+    widget.innerHTML = `
+      <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="whatsapp-float-btn" aria-label="Chat on WhatsApp" id="wa-floating-btn">
+        <svg viewBox="0 0 32 32" width="32" height="32">
+          <path d="M16 2a13.9 13.9 0 0 0-12 21L2 30l7.3-1.9A13.9 13.9 0 1 0 16 2zm0 25.4a11.5 11.5 0 0 1-5.9-1.6l-.4-.3-4.4 1.1 1.2-4.2-.3-.5A11.5 11.5 0 1 1 16 27.4zm6.3-8.6c-.3-.2-2-.9-2.3-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.4.2-.7.1a8.8 8.8 0 0 1-5-4.4c-.2-.4 0-.6.1-.8.2-.1.3-.3.5-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.8 1.2 3.3 1.4 3.5c.2.2 2.4 3.7 5.8 5.1.8.3 1.4.5 1.9.7.8.2 1.6.2 2.2.1.7-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.6-.4z"/>
+        </svg>
+      </a>
+      <span class="whatsapp-float-label">Chat with us 👋</span>
+    `;
+
+    document.body.appendChild(widget);
+
+    const btn = widget.querySelector('#wa-floating-btn');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        trackLimahEvent('whatsapp_click', { trigger: 'floating_widget' });
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount);
+  } else {
+    mount();
+  }
+
+  // Automatic Pageview Tracking
+  trackLimahEvent('pageview');
+})();
