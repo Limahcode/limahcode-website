@@ -306,16 +306,46 @@
   if (btn && document.body.classList.contains('light-mode')) btn.textContent = '🌙';
 })();
 
-function submitEnrol(e) {
+async function submitEnrol(e) {
   e.preventDefault();
-  const name = document.getElementById('enrol-name').value;
+  const name = document.getElementById('enrol-name').value.trim();
   const track = document.getElementById('enrol-track').value;
-  const phone = document.getElementById('enrol-phone').value;
+  const phone = document.getElementById('enrol-phone').value.trim();
+  const email = (document.getElementById('enrol-email') ? document.getElementById('enrol-email').value.trim() : '');
+  const exp = (document.getElementById('enrol-exp') ? document.getElementById('enrol-exp').value.trim() : '');
   
-  const msg = encodeURIComponent(`Hi LimahCode! My name is ${name}. I just submitted a reservation for Cohort 2 (${track}) at ₦50,000. My phone number is ${phone}. Please guide me on payment and confirmation.`);
-  const waUrl = `https://wa.me/2348025034999?text=${msg}`;
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving Seat...';
+  }
+
+  try {
+    await fetch('https://limahcode-web-adventure.onrender.com/api/admissions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fullname: name,
+        track: track,
+        phone: phone,
+        email: email,
+        experience: exp
+      })
+    });
+  } catch (err) {
+    console.warn('Seat reservation sync note:', err);
+  }
+
+  const msg = encodeURIComponent('Hi LimahCode Admissions! My name is ' + name + '. I just reserved a seat for Cohort 2 (' + track + ') at ₦50,000.
+
+Phone: ' + phone + (email ? '
+Email: ' + email : '') + '
+
+Please confirm my admission and provide payment instructions.');
+  const waUrl = 'https://wa.me/2348025034999?text=' + msg;
   
-  document.getElementById('wa-confirm-btn').href = waUrl;
+  const confirmBtn = document.getElementById('wa-confirm-btn');
+  if (confirmBtn) confirmBtn.href = waUrl;
   document.getElementById('enrol-form-wrap').style.display = 'none';
   document.getElementById('enrol-success').style.display = 'block';
 }
