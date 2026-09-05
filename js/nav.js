@@ -180,21 +180,25 @@ const caseStudies = {
     results: ['All 12 students completed all 8 weeks (100% retention)', 'Every student deployed a live website by demo day', '3 students enrolled directly in Advanced Track afterwards', 'Parents reported increased confidence in tech'],
     stack: ['HTML5', 'CSS3', 'JavaScript', 'VS Code', 'GitHub', 'Netlify', 'Zoom', 'Discord']
   },
-  web3: {
-    tag: 'Web Application · Business Tools',
-    title: 'SME Inventory & Sales Tracker',
-    challenge: 'A Lagos electronics retailer tracking stock on paper and WhatsApp had no visibility into low stock until it was already gone.',
-    solution: 'Web dashboard where staff log sales and deliveries, set low-stock alerts, and management gets daily email summaries with sales charts.',
-    results: ['Saves ~3 hours of admin work per week', 'Low-stock alerts prevent stockouts', 'Monthly reports generated automatically', 'Paid for itself within 2 months'],
-    stack: ['Vue.js', 'Supabase', 'PostgreSQL', 'Chart.js', 'Netlify', 'Resend email']
+    web3: {
+    tag: 'Web Application · E-Commerce Platform',
+    title: 'Deovaze — E-Commerce & Retail Platform',
+    liveUrl: 'https://deovaze.com/',
+    role: 'Backend Developer: Alimat Abimbola',
+    challenge: 'Managing product inventory, user checkout, order fulfilment, and multi-vendor transactions seamlessly across web and mobile.',
+    solution: 'Designed and engineered the backend architecture, relational database models, order processing pipelines, and secure REST APIs for Deovaze.',
+    results: ['Live in production handling client orders', 'Fast, secure database transactions & cart persistence', 'Integrated payment and notification pipelines', 'Scalable API structure for future mobile apps'],
+    stack: ['Backend Architecture', 'PHP / Laravel', 'MySQL', 'REST APIs', 'Cloud Deployment']
   },
-  hr1: {
-    tag: 'Web Application · AI / HR',
-    title: 'AI-Powered HR & Recruitment Platform',
-    challenge: 'Recruitment is often slow and manual. Employers struggle to create precise JDs and assess candidates efficiently, while candidates wait weeks for feedback on their CVs.',
-    solution: 'A live platform connecting employers and employees. It features an AI engine that scans CVs to automatically generate tailored Job Descriptions. Employers can also use the platform to set custom JDs, technical tests, and comprehensive candidate assessments.',
-    results: ['Fully automated CV scanning and JD generation', 'Streamlined candidate assessment and testing pipeline', 'Live platform connecting multiple employers and job seekers', 'Significant reduction in overall time-to-hire'],
-    stack: ['Laravel', 'React', 'MySQL', 'Python']
+    hr1: {
+    tag: 'Web Application · AI / HR Tech',
+    title: 'HireRight — AI-Powered HR & Recruitment Platform',
+    liveUrl: 'https://hirerightapp.com/',
+    role: 'Lead Backend Developer: Alimat Abimbola',
+    challenge: 'Manual recruitment is slow and inefficient. Employers struggle to create precise JDs and evaluate candidate CVs at scale, while applicants experience long feedback delays.',
+    solution: 'Engineered the full backend infrastructure for HireRight: an AI CV parser that scans resumes and automatically generates tailored Job Descriptions, coupled with custom candidate assessments and automated test scoring.',
+    results: ['Live production platform at hirerightapp.com', 'AI engine processes CVs and drafts targeted JDs in seconds', 'Custom candidate skill tests and score reporting', 'Seamless candidate tracking dashboard for hiring teams'],
+    stack: ['Python AI Engine', 'Laravel Backend', 'MySQL Database', 'REST APIs', 'React Frontend']
   },
   agora1: {
     tag: 'Mobile App · AI / AgriTech',
@@ -216,6 +220,8 @@ function openModal(id) {
     <button class="modal-close" onclick="closeModal()">✕</button>
     <p style="font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin-bottom:.5rem;">${d.tag}</p>
     <h2 style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-.025em;margin-bottom:1rem;">${d.title}</h2>
+    ${d.role ? `<p style="font-size:.78rem;font-weight:700;color:var(--gl);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.5rem;">${d.role}</p>` : ''}
+    ${d.liveUrl ? `<div style="margin-bottom:1.25rem;"><a href="${d.liveUrl}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;font-weight:700;font-size:.82rem;padding:.45rem 1rem;border-radius:8px;text-decoration:none;">Visit Live Website ↗</a></div>` : ''}
     <p style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin:.9rem 0 .3rem;">The challenge</p>
     <p style="font-size:.88rem;color:var(--glt);line-height:1.75;font-weight:300;">${d.challenge}</p>
     <p style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin:.9rem 0 .3rem;">Our solution</p>
