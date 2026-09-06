@@ -533,57 +533,7 @@ function handleReviewSubmit(e) {
 })();
 
 
-/* ============================================
-   LIVE DYNAMIC BRAND THEME SYNC
-   Syncs live colors from LIM Innovations Admin Panel
-   ============================================ */
-(function initBrandThemeSync() {
-  function applyTheme(theme) {
-    if (!theme) return;
-    const root = document.documentElement;
-    if (theme.primary_color) {
-      root.style.setProperty('--color-primary', theme.primary_color);
-      root.style.setProperty('--color-brand', theme.primary_color);
-    }
-    if (theme.primary_dark) {
-      root.style.setProperty('--color-primary-dark', theme.primary_dark);
-    }
-    if (theme.secondary_color) {
-      root.style.setProperty('--color-secondary', theme.secondary_color);
-    }
-    if (theme.accent_gold) {
-      root.style.setProperty('--color-warning', theme.accent_gold);
-      root.style.setProperty('--color-accent', theme.accent_gold);
-    }
-    if (theme.bg_main) {
-      root.style.setProperty('--bg-main', theme.bg_main);
-    }
-    if (theme.text_primary) {
-      root.style.setProperty('--text-primary', theme.text_primary);
-    }
-  }
-
-  // 1. Immediately apply cached theme to prevent flash
-  try {
-    const cached = localStorage.getItem('lim_brand_theme');
-    if (cached) {
-      applyTheme(JSON.parse(cached));
-    }
-  } catch (e) {}
-
-  // 2. Fetch fresh theme from central API
-  fetch('https://limahcode-web-adventure.onrender.com/api/theme')
-    .then(r => r.json())
-    .then(data => {
-      if (data && data.success && data.theme) {
-        applyTheme(data.theme);
-        try {
-          localStorage.setItem('lim_brand_theme', JSON.stringify(data.theme));
-        } catch (e) {}
-      }
-    })
-    .catch(() => {});
-})();
+/* ======================================
 
 /* ============================================
    LIVE DYNAMIC BRAND THEME SYNC
@@ -592,84 +542,69 @@ function handleReviewSubmit(e) {
 (function initBrandThemeSync() {
   function applyTheme(theme) {
     if (!theme) return;
-    const root = document.documentElement;
     const primary = theme.primary_color || '#1A7A52';
     const dark = theme.primary_dark || '#0D3D29';
     const secondary = theme.secondary_color || '#2EAA72';
     const gold = theme.accent_gold || '#FAC740';
     
-    // Core CSS variables used across styles.css
-    root.style.setProperty('--green', primary);
-    root.style.setProperty('--color-primary', primary);
-    root.style.setProperty('--color-brand', primary);
-    root.style.setProperty('--gl', secondary);
-    root.style.setProperty('--color-secondary', secondary);
-    root.style.setProperty('--gd', dark);
-    root.style.setProperty('--color-primary-dark', dark);
-    root.style.setProperty('--al', gold);
-    root.style.setProperty('--amber', gold);
-    root.style.setProperty('--color-warning', gold);
-    root.style.setProperty('--color-accent', gold);
-
-    // Also inject dynamic override style tag to ensure instant, high-specificity styling
+    // Inject dynamic high-priority style tag
     let styleTag = document.getElementById('lim-dynamic-theme-style');
     if (!styleTag) {
       styleTag = document.createElement('style');
       styleTag.id = 'lim-dynamic-theme-style';
       document.head.appendChild(styleTag);
     }
-    styleTag.textContent = `
+    styleTag.innerHTML = 
       :root {
-        --green: ${primary} !important;
-        --gl: ${secondary} !important;
-        --gd: ${dark} !important;
-        --al: ${gold} !important;
-        --amber: ${gold} !important;
-        --color-primary: ${primary} !important;
-        --color-secondary: ${secondary} !important;
+        --green:  !important;
+        --gl:  !important;
+        --gd:  !important;
+        --al:  !important;
+        --amber:  !important;
+        --color-primary:  !important;
+        --color-secondary:  !important;
       }
       .btn-primary {
-        background: ${primary} !important;
-        border-color: ${primary} !important;
+        background:  !important;
+        border-color:  !important;
         color: #ffffff !important;
       }
       .btn-primary:hover {
-        background: ${secondary} !important;
-        border-color: ${secondary} !important;
+        background:  !important;
+        border-color:  !important;
       }
       .nav-portal-btn {
-        background: ${primary} !important;
-        border-color: ${secondary} !important;
+        background:  !important;
+        border-color:  !important;
         color: #ffffff !important;
       }
       .nav-portal-btn:hover {
-        background: ${secondary} !important;
+        background:  !important;
       }
       .track-card.popular {
-        border-color: ${primary} !important;
+        border-color:  !important;
+        background: rgba(, , , 0.12) !important;
       }
       .pop-badge {
-        background: ${primary} !important;
+        background:  !important;
       }
       nav .logo span, .logo span {
-        color: ${secondary} !important;
+        color:  !important;
       }
-      .accent, .sec-label {
-        color: ${secondary} !important;
+      .accent, .sec-label, .sec-label.reveal {
+        color:  !important;
       }
       .tcard-quote {
-        border-left-color: ${primary} !important;
+        border-left-color:  !important;
       }
-    `;
+    ;
   }
 
-  // 1. Immediately apply cached theme to prevent flash
+  // 1. Check local cache
   try {
     const cached = localStorage.getItem('lim_brand_theme');
-    if (cached) {
-      applyTheme(JSON.parse(cached));
-    }
-  } catch (e) {}
+    if (cached) applyTheme(JSON.parse(cached));
+  } catch(e) {}
 
   // 2. Fetch fresh theme from central API
   fetch('https://limahcode-web-adventure.onrender.com/api/theme')
@@ -679,8 +614,8 @@ function handleReviewSubmit(e) {
         applyTheme(data.theme);
         try {
           localStorage.setItem('lim_brand_theme', JSON.stringify(data.theme));
-        } catch (e) {}
+        } catch(e) {}
       }
     })
-    .catch(() => {});
+    .catch(err => console.log('Theme sync notice:', err));
 })();
