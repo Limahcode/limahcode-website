@@ -328,13 +328,23 @@ function animateCount(el, target, suffix, duration) {
 /* ============================================
    PERFORMANCE & ENGAGEMENT TELEMETRY
    ============================================ */
+function getDeviceType() {
+  const ua = (navigator.userAgent || navigator.vendor || window.opera || '').toLowerCase();
+  const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|silk|fennec|tablet|kindle/i.test(ua);
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (isMobileUA || (isTouch && window.innerWidth <= 1024) || window.innerWidth <= 768) {
+    return 'Mobile';
+  }
+  return 'Desktop';
+}
+
 function trackLimahEvent(eventType, meta) {
   try {
     const payload = {
       event_type: eventType,
       page: window.location.pathname.split('/').pop() || 'index.html',
       referrer: document.referrer || '',
-      device: window.innerWidth <= 768 ? 'Mobile' : 'Desktop',
+      device: getDeviceType(),
       meta: meta || {}
     };
     const endpoint = 'https://limahcode-web-adventure.onrender.com/api/track';
