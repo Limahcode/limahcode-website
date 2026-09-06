@@ -584,3 +584,103 @@ function handleReviewSubmit(e) {
     })
     .catch(() => {});
 })();
+
+/* ============================================
+   LIVE DYNAMIC BRAND THEME SYNC
+   Syncs live colors from LIM Innovations Admin Panel
+   ============================================ */
+(function initBrandThemeSync() {
+  function applyTheme(theme) {
+    if (!theme) return;
+    const root = document.documentElement;
+    const primary = theme.primary_color || '#1A7A52';
+    const dark = theme.primary_dark || '#0D3D29';
+    const secondary = theme.secondary_color || '#2EAA72';
+    const gold = theme.accent_gold || '#FAC740';
+    
+    // Core CSS variables used across styles.css
+    root.style.setProperty('--green', primary);
+    root.style.setProperty('--color-primary', primary);
+    root.style.setProperty('--color-brand', primary);
+    root.style.setProperty('--gl', secondary);
+    root.style.setProperty('--color-secondary', secondary);
+    root.style.setProperty('--gd', dark);
+    root.style.setProperty('--color-primary-dark', dark);
+    root.style.setProperty('--al', gold);
+    root.style.setProperty('--amber', gold);
+    root.style.setProperty('--color-warning', gold);
+    root.style.setProperty('--color-accent', gold);
+
+    // Also inject dynamic override style tag to ensure instant, high-specificity styling
+    let styleTag = document.getElementById('lim-dynamic-theme-style');
+    if (!styleTag) {
+      styleTag = document.createElement('style');
+      styleTag.id = 'lim-dynamic-theme-style';
+      document.head.appendChild(styleTag);
+    }
+    styleTag.textContent = `
+      :root {
+        --green: ${primary} !important;
+        --gl: ${secondary} !important;
+        --gd: ${dark} !important;
+        --al: ${gold} !important;
+        --amber: ${gold} !important;
+        --color-primary: ${primary} !important;
+        --color-secondary: ${secondary} !important;
+      }
+      .btn-primary {
+        background: ${primary} !important;
+        border-color: ${primary} !important;
+        color: #ffffff !important;
+      }
+      .btn-primary:hover {
+        background: ${secondary} !important;
+        border-color: ${secondary} !important;
+      }
+      .nav-portal-btn {
+        background: ${primary} !important;
+        border-color: ${secondary} !important;
+        color: #ffffff !important;
+      }
+      .nav-portal-btn:hover {
+        background: ${secondary} !important;
+      }
+      .track-card.popular {
+        border-color: ${primary} !important;
+      }
+      .pop-badge {
+        background: ${primary} !important;
+      }
+      nav .logo span, .logo span {
+        color: ${secondary} !important;
+      }
+      .accent, .sec-label {
+        color: ${secondary} !important;
+      }
+      .tcard-quote {
+        border-left-color: ${primary} !important;
+      }
+    `;
+  }
+
+  // 1. Immediately apply cached theme to prevent flash
+  try {
+    const cached = localStorage.getItem('lim_brand_theme');
+    if (cached) {
+      applyTheme(JSON.parse(cached));
+    }
+  } catch (e) {}
+
+  // 2. Fetch fresh theme from central API
+  fetch('https://limahcode-web-adventure.onrender.com/api/theme')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.success && data.theme) {
+        applyTheme(data.theme);
+        try {
+          localStorage.setItem('lim_brand_theme', JSON.stringify(data.theme));
+        } catch (e) {}
+      }
+    })
+    .catch(() => {});
+})();
