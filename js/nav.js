@@ -531,3 +531,56 @@ function handleReviewSubmit(e) {
     })
     .catch(() => {});
 })();
+
+
+/* ============================================
+   LIVE DYNAMIC BRAND THEME SYNC
+   Syncs live colors from LIM Innovations Admin Panel
+   ============================================ */
+(function initBrandThemeSync() {
+  function applyTheme(theme) {
+    if (!theme) return;
+    const root = document.documentElement;
+    if (theme.primary_color) {
+      root.style.setProperty('--color-primary', theme.primary_color);
+      root.style.setProperty('--color-brand', theme.primary_color);
+    }
+    if (theme.primary_dark) {
+      root.style.setProperty('--color-primary-dark', theme.primary_dark);
+    }
+    if (theme.secondary_color) {
+      root.style.setProperty('--color-secondary', theme.secondary_color);
+    }
+    if (theme.accent_gold) {
+      root.style.setProperty('--color-warning', theme.accent_gold);
+      root.style.setProperty('--color-accent', theme.accent_gold);
+    }
+    if (theme.bg_main) {
+      root.style.setProperty('--bg-main', theme.bg_main);
+    }
+    if (theme.text_primary) {
+      root.style.setProperty('--text-primary', theme.text_primary);
+    }
+  }
+
+  // 1. Immediately apply cached theme to prevent flash
+  try {
+    const cached = localStorage.getItem('lim_brand_theme');
+    if (cached) {
+      applyTheme(JSON.parse(cached));
+    }
+  } catch (e) {}
+
+  // 2. Fetch fresh theme from central API
+  fetch('https://limahcode-web-adventure.onrender.com/api/theme')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.success && data.theme) {
+        applyTheme(data.theme);
+        try {
+          localStorage.setItem('lim_brand_theme', JSON.stringify(data.theme));
+        } catch (e) {}
+      }
+    })
+    .catch(() => {});
+})();
