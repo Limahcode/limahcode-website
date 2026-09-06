@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LimahCode — Build. Teach. Innovate.</title>
+  <title>LIM Innovations — Build. Teach. Innovate.</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <style>
@@ -77,7 +77,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="logo">Limah<span>Code</span></a>
+  <a href="index.html" class="logo" style="display:inline-flex;align-items:center;gap:10px;"><img src="images/lim_innovations_logo.png" alt="LIM Innovations Logo" style="height:36px;width:36px;border-radius:8px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.3);">LIM<span>Innovations</span></a>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
@@ -110,7 +110,12 @@
   <div class="hero-glow2 glow-animated" style="animation-delay:3s;"></div>
   <div class="badge fade-up">Lagos, Nigeria · Est. 2025</div>
   <h1 class="fade-up">Build.<br><span class="g">Teach.</span><br><span class="a">Innovate.</span></h1>
-  <p class="hero-sub fade-up delay-1">LimahCode is a software engineering studio, AI &amp; computer vision product lab, and online coding school for Africa's next generation of tech builders.</p>
+  <div style="margin-top: 1.25rem; font-size: 1.25rem; font-weight: 700; color: var(--gl); font-family: 'Syne', sans-serif;" class="fade-up delay-1">
+  Empowering <span id="typed-text" style="color: var(--al); border-right: 2px solid var(--al); padding-right: 4px;">Software Engineers</span>
+</div>
+<p class="hero-sub fade-up delay-1" style="margin-top: 1rem;">
+  LIM Innovations is a premier software engineering studio, AI lab, and digital academy in Lagos, Nigeria. We engineer commercial digital products and mentor the next generation of builders.
+</p>
   <div class="hero-actions fade-up delay-2">
     <a href="services.html" class="btn-primary">Explore our work</a>
     <a href="academy.html" class="btn-outline">Join the Academy →</a>
@@ -147,7 +152,7 @@
   <div class="svc-grid reveal-group">
     <div class="svc-card">
       <div class="svc-icon ic-g">🎓</div>
-      <h3>LimahCode Academy</h3>
+      <h3>LIM Innovations Academy</h3>
       <p>Live online coding bootcamps for teens aged 12–18. Small cohorts, real projects, real mentorship.</p>
       <a href="academy.html" class="svc-link">Enrol now →</a>
     </div>
@@ -184,12 +189,34 @@
 
 <!-- TESTIMONIALS -->
 <section>
-  <span class="sec-label reveal">What people say</span>
-  <h2 class="reveal">Early feedback</h2>
-  <div class="tgrid reveal-group">
-    <div class="tcard">
-      <p class="tcard-quote">"The academy gave my son real skills — not just tutorials. He deployed his first website at 14 and couldn't stop talking about it."</p>
-      <div class="tcard-author"><div class="avatar">AO</div><div><div class="tcard-name">Mrs. Adaeze Okafor</div><div class="tcard-role">Parent of a Builder Track graduate</div></div></div>
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px; margin-bottom: 2rem;">
+  <div>
+    <span class="sec-label reveal">What people say</span>
+    <h2 class="reveal">Verified Student & Client Reviews</h2>
+  </div>
+  <button onclick="openReviewModal()" class="btn-outline reveal" style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+    <i class="fa-solid fa-pen-to-square"></i> Submit a Review
+  </button>
+</div>
+
+<!-- Auto-scrolling Testimonial Track -->
+<div id="reviews-container" class="tgrid reveal-group">
+  <div class="tcard">
+    <div style="color: #f59e0b; margin-bottom: 8px; font-size: 14px;">★★★★★</div>
+    <p class="tcard-quote">"The academy gave my son real skills – not just tutorials. He deployed his first website after 4 weeks and won't stop coding."</p>
+    <div class="tcard-author"><div class="avatar">AO</div><div><div class="tcard-name">Mrs. Adebayo</div><div class="tcard-role">Parent, Cohort 1</div></div></div>
+  </div>
+  <div class="tcard">
+    <div style="color: #f59e0b; margin-bottom: 8px; font-size: 14px;">★★★★★</div>
+    <p class="tcard-quote">"LIM Innovations built our inventory system in 6 weeks and saved us hours of daily manual tracking. Incredible engineering team."</p>
+    <div class="tcard-author"><div class="avatar">BL</div><div><div class="tcard-name">Bello L.</div><div class="tcard-role">Operations Lead, Retail client</div></div></div>
+  </div>
+  <div class="tcard">
+    <div style="color: #f59e0b; margin-bottom: 8px; font-size: 14px;">★★★★★</div>
+    <p class="tcard-quote">"The computer vision shelf monitor changed how we manage our stores. Accurate, fast, and delivered on schedule."</p>
+    <div class="tcard-author"><div class="avatar">CM</div><div><div class="tcard-name">Chioma M.</div><div class="tcard-role">Product Manager, AgriTech client</div></div></div>
+  </div>
+</div></div>
     </div>
     <div class="tcard">
       <p class="tcard-quote">"LimahCode built our inventory system in 6 weeks and saved us hours of manual work every single day. Best investment we made."</p>
@@ -217,7 +244,7 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="index.html" class="logo">Limah<span>Code</span></a>
+      <a href="index.html" class="logo" style="display:inline-flex;align-items:center;gap:10px;"><img src="images/lim_innovations_logo.png" alt="LIM Innovations Logo" style="height:36px;width:36px;border-radius:8px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.3);">LIM<span>Innovations</span></a>
       <p>Software engineering studio, computer vision lab, and online coding school for teens. Lagos, Nigeria.</p>
     </div>
     <div class="footer-col">
@@ -276,5 +303,42 @@
   if (btn && document.body.classList.contains('light-mode')) btn.textContent = '☀️';
 })();
 </script>
+
+<!-- SUBMIT REVIEW MODAL -->
+<div id="review-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px);">
+  <div style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; max-width: 500px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow: hidden; position: relative; animation: slideUp 0.25s ease;">
+    <div style="padding: 1.5rem 1.75rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="font-family: 'Syne', sans-serif; font-size: 1.25rem; color: var(--white); margin: 0;"><i class="fa-solid fa-star" style="color: var(--al);"></i> Share Your Experience</h3>
+      <button onclick="closeReviewModal()" style="background: rgba(255,255,255,0.08); border: none; color: var(--white); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
+    </div>
+    <form id="public-review-form" onsubmit="handleReviewSubmit(event)" style="padding: 1.75rem;">
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--glt); margin-bottom: 0.4rem;">Your Full Name *</label>
+        <input type="text" id="rev-name" required placeholder="e.g. Samuel Okafor" style="width: 100%; padding: 0.75rem 1rem; background: var(--surf); border: 1px solid var(--border); border-radius: 8px; color: var(--white); outline: none;">
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--glt); margin-bottom: 0.4rem;">Your Role / Relationship</label>
+        <input type="text" id="rev-role" placeholder="e.g. Student (Cohort 1) or Parent" style="width: 100%; padding: 0.75rem 1rem; background: var(--surf); border: 1px solid var(--border); border-radius: 8px; color: var(--white); outline: none;">
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--glt); margin-bottom: 0.4rem;">Rating</label>
+        <select id="rev-rating" style="width: 100%; padding: 0.75rem 1rem; background: var(--surf); border: 1px solid var(--border); border-radius: 8px; color: var(--white); outline: none;">
+          <option value="5">★★★★★ (5 Stars - Excellent)</option>
+          <option value="4">★★★★☆ (4 Stars - Very Good)</option>
+          <option value="3">★★★☆☆ (3 Stars - Good)</option>
+        </select>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--glt); margin-bottom: 0.4rem;">Your Testimonial / Feedback *</label>
+        <textarea id="rev-comment" required placeholder="How did LIM Innovations help you or your child learn code?" style="width: 100%; min-height: 90px; padding: 0.75rem 1rem; background: var(--surf); border: 1px solid var(--border); border-radius: 8px; color: var(--white); outline: none;"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="rev-submit-btn" style="width: 100%; justify-content: center; padding: 0.9rem; cursor: pointer;">
+        Submit Review for Verification
+      </button>
+      <div id="rev-feedback-msg" style="margin-top: 0.75rem; font-size: 0.85rem; text-align: center; display: none;"></div>
+    </form>
+  </div>
+</div>
+
 </body>
 </html>

@@ -403,3 +403,131 @@ function trackLimahEvent(eventType, meta) {
   // Automatic Pageview Tracking
   trackLimahEvent('pageview');
 })();
+
+
+/* ============================================
+   DYNAMIC HERO TYPEWRITER EFFECT
+   ============================================ */
+(function initTypewriter() {
+  const el = document.getElementById('typed-text');
+  if (!el) return;
+  const words = ['Software Engineers', 'Teen Innovators', 'Career Pivoters', 'Tech Creators'];
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const typeSpeed = 100;
+  const deleteSpeed = 50;
+  const pauseTime = 1800;
+
+  function type() {
+    const currentWord = words[wordIndex];
+    if (isDeleting) {
+      el.textContent = currentWord.substring(0, charIndex - 1);
+      charIndex--;
+    } else {
+      el.textContent = currentWord.substring(0, charIndex + 1);
+      charIndex++;
+    }
+
+    if (!isDeleting && charIndex === currentWord.length) {
+      isDeleting = true;
+      setTimeout(type, pauseTime);
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+      setTimeout(type, 300);
+    } else {
+      setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
+    }
+  }
+  type();
+})();
+
+/* ============================================
+   COMMUNITY REVIEWS ENGINE & MODAL
+   ============================================ */
+function openReviewModal() {
+  const modal = document.getElementById('review-modal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeReviewModal() {
+  const modal = document.getElementById('review-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function handleReviewSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('rev-name').value.trim();
+  const role = document.getElementById('rev-role').value.trim() || 'Student / Parent';
+  const rating = parseInt(document.getElementById('rev-rating').value) || 5;
+  const comment = document.getElementById('rev-comment').value.trim();
+  const btn = document.getElementById('rev-submit-btn');
+  const msg = document.getElementById('rev-feedback-msg');
+
+  if (!name || !comment) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  fetch('https://limahcode-web-adventure.onrender.com/api/submit-review', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, role, rating, comment })
+  })
+  .then(r => r.json())
+  .then(data => {
+    msg.style.display = 'block';
+    if (data.success) {
+      msg.style.color = '#22c55e';
+      msg.textContent = '✓ ' + (data.message || 'Thank you! Your review has been submitted for instructor verification.');
+      document.getElementById('public-review-form').reset();
+      setTimeout(closeReviewModal, 3000);
+    } else {
+      msg.style.color = '#ef4444';
+      msg.textContent = 'Error: ' + (data.error || 'Could not submit review.');
+    }
+  })
+  .catch(() => {
+    msg.style.display = 'block';
+    msg.style.color = '#ef4444';
+    msg.textContent = 'Network error. Please try again.';
+  })
+  .finally(() => {
+    btn.disabled = false;
+    btn.textContent = 'Submit Review for Verification';
+  });
+}
+
+// Dynamically load approved reviews from backend API
+(function loadLiveApprovedReviews() {
+  const container = document.getElementById('reviews-container');
+  if (!container) return;
+
+  fetch('https://limahcode-web-adventure.onrender.com/api/reviews')
+    .then(r => r.json())
+    .then(data => {
+      if (data.success && data.reviews && data.reviews.length > 0) {
+        let html = '';
+        data.reviews.forEach(r => {
+          const stars = '★'.repeat(r.rating || 5);
+          const initials = r.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+          html += `
+            <div class="tcard">
+              <div style="color: #f59e0b; margin-bottom: 8px; font-size: 14px;">${stars}</div>
+              <p class="tcard-quote">"${r.comment}"</p>
+              <div class="tcard-author">
+                <div class="avatar">${initials}</div>
+                <div>
+                  <div class="tcard-name">${r.name}</div>
+                  <div class="tcard-role">${r.role || 'Student / Parent'}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      }
+    })
+    .catch(() => {});
+})();
