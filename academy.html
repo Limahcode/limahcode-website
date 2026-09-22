@@ -263,15 +263,39 @@
         <p class="form-note">Tuition is ₦50,000 for the 3 months. After submitting, our admissions team will message you on WhatsApp to confirm your slot and provide payment details.</p>
       </form>
     </div>
-    <div id="enrol-success" style="display:none;text-align:center;padding:2.5rem 1.5rem;">
-      <div style="font-size:3rem;margin-bottom:1rem;color:var(--gl);">✓</div>
-      <h3 style="margin-bottom:.75rem;font-family:'Syne',sans-serif;">Reservation Received!</h3>
-      <p style="font-size:.92rem;color:var(--glt);font-weight:300;line-height:1.7;margin-bottom:1.5rem;">
-        Thank you! We have logged your reservation. Click the button below to finalize your registration and payment on WhatsApp immediately.
+    <div id="enrol-success" style="display:none; text-align:center; padding: 2.2rem 1.5rem; border-radius: 16px; background: rgba(30, 41, 59, 0.4); border: 2px solid var(--gl); box-shadow: 0 16px 36px rgba(0,0,0,0.35);">
+      <div style="font-size: 3.2rem; margin-bottom: 0.6rem;">🎉</div>
+      <div style="margin-bottom: 0.8rem;">
+        <span style="display: inline-block; background: #dcfce7; color: #15803d; font-size: 0.78rem; font-weight: 800; padding: 0.35rem 0.9rem; border-radius: 20px; border: 1px solid #bbf7d0; text-transform: uppercase; letter-spacing: 0.05em;">
+          ✓ Seat Reserved & Securely Logged
+        </span>
+      </div>
+      <h3 style="margin-bottom: 0.4rem; font-family: 'Syne', sans-serif; font-size: 1.8rem; color: #ffffff;">
+        Reservation Confirmed!
+      </h3>
+      <p style="font-size: 1.05rem; color: var(--gl); font-weight: 700; margin-bottom: 0.6rem;">
+        Welcome, <span id="confirmed-student-name">Student</span>!
       </p>
-      <a id="wa-confirm-btn" href="#" target="_blank" class="btn-hero-whatsapp" style="display:inline-flex;">
-        <i class="fa-brands fa-whatsapp"></i> Finalize on WhatsApp Now
-      </a>
+      <div id="confirmed-track-pill" style="display: inline-block; background: rgba(250, 199, 64, 0.15); border: 1px solid rgba(250, 199, 64, 0.4); color: var(--al); font-weight: 700; font-size: 0.85rem; padding: 0.35rem 1rem; border-radius: 8px; margin-bottom: 1.3rem;">
+        Cohort 2 • ₦50,000
+      </div>
+      <p style="font-size: 0.92rem; color: var(--glt); font-weight: 300; line-height: 1.6; max-width: 520px; margin: 0 auto 1.4rem auto;">
+        Your reservation has been securely recorded in the LIM Innovations admissions system. To finalize your slot and receive payment details, continue to WhatsApp:
+      </p>
+      
+      <!-- Auto Redirect Countdown & Primary WhatsApp CTA -->
+      <div style="background: rgba(37, 211, 102, 0.08); border: 1px dashed rgba(37, 211, 102, 0.4); border-radius: 12px; padding: 1.2rem; max-width: 480px; margin: 0 auto 1.4rem auto;">
+        <div style="font-size: 0.88rem; color: #25D366; font-weight: 700; margin-bottom: 0.8rem;">
+          <i class="fa-solid fa-clock-rotate-left"></i> Launching WhatsApp in <span id="wa-countdown" style="font-size: 1.2rem; font-weight: 900; color: #ffffff;">3</span> seconds...
+        </div>
+        <a id="wa-confirm-btn" href="#" target="_blank" class="enrol-btn-wa" style="margin-bottom: 0; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);">
+          <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Finalize on WhatsApp Now (<span id="wa-countdown-btn">3s</span>)
+        </a>
+      </div>
+
+      <p style="font-size: 0.8rem; color: var(--gm); margin-top: 0.5rem;">
+        Admissions Desk: <strong>+234 802 503 4999</strong> • If WhatsApp does not open automatically, tap the button above.
+      </p>
     </div>
   </div>
 </section>
@@ -345,12 +369,18 @@ async function submitEnrol(e) {
   const email = (document.getElementById('enrol-email') ? document.getElementById('enrol-email').value.trim() : '');
   const exp = (document.getElementById('enrol-exp') ? document.getElementById('enrol-exp').value.trim() : '');
   
+  if (!name || !track || !phone) {
+    alert('Please fill in your name, track selection, and WhatsApp number.');
+    return;
+  }
+
   const submitBtn = e.target.querySelector('button[type="submit"]');
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Saving Seat...';
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Securing Your Slot...';
   }
 
+  // 1. Log to central admissions database
   try {
     await fetch('https://limahcode-web-adventure.onrender.com/api/admissions', {
       method: 'POST',
@@ -367,18 +397,55 @@ async function submitEnrol(e) {
     console.warn('Seat reservation sync note:', err);
   }
 
-  const msg = encodeURIComponent('Hi LimahCode Admissions! My name is ' + name + '. I just reserved a seat for Cohort 2 (' + track + ') at ₦50,000.
+  // 2. Prepare WhatsApp direct message
+  const msg = encodeURIComponent(
+    'Hello LIM Innovations Admissions! My name is ' + name + 
+    '. I just reserved a seat for Cohort 2 (' + track + ') at ₦50,000.
 
-Phone: ' + phone + (email ? '
-Email: ' + email : '') + '
+' +
+    'WhatsApp: ' + phone + 
+    (email ? '
+Email: ' + email : '') + 
+    (exp ? '
+Prior Experience: ' + exp : '') + 
+    '
 
-Please confirm my admission and provide payment instructions.');
+Please confirm my admission and provide payment instructions.'
+  );
   const waUrl = 'https://wa.me/2348025034999?text=' + msg;
   
+  // 3. Populate confirmation details
+  const nameEl = document.getElementById('confirmed-student-name');
+  if (nameEl) nameEl.textContent = name;
+  const trackEl = document.getElementById('confirmed-track-pill');
+  if (trackEl) trackEl.textContent = track + ' • ₦50,000';
   const confirmBtn = document.getElementById('wa-confirm-btn');
   if (confirmBtn) confirmBtn.href = waUrl;
-  document.getElementById('enrol-form-wrap').style.display = 'none';
-  document.getElementById('enrol-success').style.display = 'block';
+
+  // 4. Hide form and reveal celebration card
+  const formWrap = document.getElementById('enrol-form-wrap');
+  if (formWrap) formWrap.style.display = 'none';
+  const successBox = document.getElementById('enrol-success');
+  if (successBox) {
+    successBox.style.display = 'block';
+    // Smoothly scroll directly to the confirmation card
+    successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // 5. 3-second auto-redirect countdown to WhatsApp
+  let seconds = 3;
+  const countdownEl = document.getElementById('wa-countdown');
+  const countdownBtn = document.getElementById('wa-countdown-btn');
+  const timer = setInterval(() => {
+    seconds--;
+    if (countdownEl) countdownEl.textContent = seconds;
+    if (countdownBtn) countdownBtn.textContent = seconds + 's';
+    if (seconds <= 0) {
+      clearInterval(timer);
+      if (countdownEl) countdownEl.parentElement.innerHTML = '<i class="fa-solid fa-check"></i> Opening WhatsApp to finalize...';
+      window.open(waUrl, '_blank');
+    }
+  }, 1000);
 }
 </script>
 </body>
